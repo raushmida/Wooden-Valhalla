@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wooden Valhalla — Gibson Les Paul Collection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary:    #0c0905;
+            --bg-secondary:  #131009;
+            --bg-card:       #1a1208;
+            --gold:          #c8922a;
+            --gold-light:    #e8b84b;
+            --gold-muted:    #7a5818;
+            --text-primary:  #f2ebe0;
+            --text-secondary:#a89880;
+            --text-muted:    #5c4f3e;
+            --border:        rgba(200,146,42,0.12);
+            --font-display:  'Cormorant Garamond', serif;
+            --font-body:     'Outfit', sans-serif;
+            --font-label:    'Bebas Neue', sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-weight: 300;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+            background-size: 200px 200px;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.35;
+        }
+
+        /* ─── NAV ─── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 3rem;
+            background: linear-gradient(to bottom, rgba(12,9,5,0.92) 0%, transparent 100%);
+            backdrop-filter: blur(6px);
+            transition: background 0.3s ease, border-bottom 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(12,9,5,0.97);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+        }
+        .nav-logo span { color: var(--gold); }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-family: var(--font-label);
+            font-size: 0.82rem;
+            letter-spacing: 0.14em;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--gold-light); }
+
+        .nav-links a.nav-cta {
+            color: var(--gold);
+            border: 1px solid var(--gold-muted);
+            padding: 0.4rem 1.1rem;
+            transition: all 0.2s;
+        }
+        .nav-links a.nav-cta:hover {
+            background: var(--gold);
+            color: var(--bg-primary);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 1px;
+            background: var(--text-primary);
+            transition: all 0.3s;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--bg-primary);
+            z-index: 199;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a {
+            font-family: var(--font-display);
+            font-size: 2.6rem;
+            font-weight: 300;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .mobile-menu a:hover { color: var(--gold); }
+        .mobile-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            background: none;
+            border: none;
+            line-height: 1;
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 55% 75% at 72% 48%, rgba(160,85,15,0.14) 0%, transparent 65%),
+                radial-gradient(ellipse 35% 50% at 85% 25%, rgba(200,146,42,0.07) 0%, transparent 60%),
+                linear-gradient(135deg, #0c0905 0%, #181008 55%, #0e0b06 100%);
+        }
+
+        /* Decorative Les Paul silhouette */
+        .hero-guitar-wrap {
+            position: absolute;
+            right: 4%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 38%;
+            max-width: 520px;
+            opacity: 0.055;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 9rem 3rem 5rem;
+            max-width: 700px;
+        }
+
+        .hero-eyebrow {
+            font-family: var(--font-label);
+            font-size: 0.72rem;
+            letter-spacing: 0.28em;
+            color: var(--gold);
+            margin-bottom: 1.75rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .hero-eyebrow::before {
+            content: '';
+            display: block;
+            width: 36px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .hero-headline {
+            font-family: var(--font-display);
+            font-size: clamp(3.2rem, 6.5vw, 5.8rem);
+            font-weight: 300;
+            line-height: 1.04;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+            margin-bottom: 1.75rem;
+        }
+        .hero-headline em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .hero-sub {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            max-width: 460px;
+            margin-bottom: 2.75rem;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-gold {
+            font-family: var(--font-label);
+            font-size: 0.82rem;
+            letter-spacing: 0.16em;
+            padding: 0.9rem 2rem;
+            background: var(--gold);
+            color: var(--bg-primary);
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.22s ease;
+        }
+        .btn-gold:hover {
+            background: var(--gold-light);
+            transform: translateY(-1px);
+        }
+
+        .btn-ghost {
+            font-family: var(--font-label);
+            font-size: 0.82rem;
+            letter-spacing: 0.16em;
+            padding: 0.9rem 2rem;
+            border: 1px solid var(--text-muted);
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.22s ease;
+        }
+        .btn-ghost:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .hero-scroll-hint {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 3rem;
+            font-family: var(--font-label);
+            font-size: 0.68rem;
+            letter-spacing: 0.22em;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .hero-scroll-hint::after {
+            content: '';
+            width: 50px;
+            height: 1px;
+            background: var(--text-muted);
+            animation: pulse-line 2.2s ease infinite;
+        }
+        @keyframes pulse-line {
+            0%, 100% { opacity: 0.4; transform: scaleX(1); }
+            50% { opacity: 1; transform: scaleX(0.6); }
+        }
+
+        /* ─── STATEMENT ─── */
+        .statement {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 5.5rem 3rem;
+        }
+        .statement-inner {
+            max-width: 880px;
+            margin: 0 auto;
+        }
+        .statement-quote {
+            font-family: var(--font-display);
+            font-size: clamp(1.55rem, 3vw, 2.5rem);
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.45;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+        }
+        .statement-quote strong {
+            font-style: normal;
+            font-weight: 600;
+            color: var(--gold-light);
+        }
+        .statement-attr {
+            font-family: var(--font-label);
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            color: var(--text-muted);
+        }
+
+        /* ─── FEATURED GUITARS ─── */
+        .featured-section {
+            padding: 6rem 3rem;
+        }
+        .featured-inner {
+            max-width: 1380px;
+            margin: 0 auto;
+        }
+        .featured-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            gap: 2rem;
+        }
+
+        .section-eyebrow {
+            font-family: var(--font-label);
+            font-size: 0.72rem;
+            letter-spacing: 0.25em;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+        }
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 3.8vw, 3rem);
+            font-weight: 300;
+            line-height: 1.12;
+            color: var(--text-primary);
+        }
+        .section-title em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .guitar-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .guitar-card {
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .guitar-card-img {
+            aspect-ratio: 3/4;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .guitar-placeholder {
+            position: absolute;
+            inset: 0;
+            transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .guitar-card:hover .guitar-placeholder { transform: scale(1.05); }
+
+        /* Wood/mahogany-toned placeholders */
+        .gp-burst {
+            background:
+                radial-gradient(ellipse 70% 80% at 35% 40%, #7a2d08 0%, #4a1804 35%, #1e0d02 70%, #0e0702 100%);
+        }
+        .gp-burst::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                12deg,
+                transparent,
+                transparent 14px,
+                rgba(255,200,100,0.018) 14px,
+                rgba(255,200,100,0.018) 15px
+            );
+        }
+        .gp-burst::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 55% 65% at 50% 38%, rgba(220,140,30,0.1) 0%, transparent 65%);
+        }
+
+        .gp-black {
+            background:
+                radial-gradient(ellipse 75% 80% at 50% 40%, #1c1c1c 0%, #0e0e0e 45%, #060606 100%);
+        }
+        .gp-black::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                -8deg,
+                transparent,
+                transparent 18px,
+                rgba(255,255,255,0.012) 18px,
+                rgba(255,255,255,0.012) 19px
+            );
+        }
+        .gp-black::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 50% 60% at 45% 35%, rgba(200,146,42,0.06) 0%, transparent 60%);
+        }
+
+        .gp-cherry {
+            background:
+                radial-gradient(ellipse 70% 75% at 60% 42%, #6b1a0a 0%, #3d0f05 40%, #180802 75%, #0c0502 100%);
+        }
+        .gp-cherry::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                6deg,
+                transparent,
+                transparent 10px,
+                rgba(255,180,80,0.02) 10px,
+                rgba(255,180,80,0.02) 11px
+            );
+        }
+        .gp-cherry::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 60% 70% at 50% 40%, rgba(180,80,20,0.12) 0%, transparent 65%);
+        }
+
+        .card-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 3.5rem 1.5rem 1.5rem;
+            background: linear-gradient(to top, rgba(10,7,3,0.97) 0%, rgba(10,7,3,0.5) 50%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .card-year {
+            font-family: var(--font-label);
+            font-size: 2.8rem;
+            color: rgba(200,146,42,0.25);
+            line-height: 1;
+            margin-bottom: 0.2rem;
+        }
+        .card-model {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+        }
+        .card-detail {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+        }
+
+        .card-meta {
+            padding: 1.1rem 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .badge {
+            font-family: var(--font-label);
+            font-size: 0.62rem;
+            letter-spacing: 0.14em;
+            padding: 0.28rem 0.7rem;
+            border: 1px solid var(--gold-muted);
+            color: var(--gold);
+        }
+        .badge.sale {
+            border-color: rgba(80,180,100,0.35);
+            color: #6ec98c;
+        }
+        .badge.archive {
+            border-color: var(--text-muted);
+            color: var(--text-muted);
+        }
+
+        .card-arrow {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+        .guitar-card:hover .card-arrow {
+            color: var(--gold);
+            transform: translateX(5px);
+        }
+
+        /* ─── SECTIONS NAV ─── */
+        .sections-nav {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+        }
+        .sections-nav-inner {
+            max-width: 1380px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .snav-block {
+            display: block;
+            padding: 4.5rem 3rem;
+            border-right: 1px solid var(--border);
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .snav-block:last-child { border-right: none; }
+        .snav-block:hover { background: rgba(200,146,42,0.04); }
+
+        .snav-num {
+            font-family: var(--font-label);
+            font-size: 2.8rem;
+            color: rgba(200,146,42,0.1);
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            transition: color 0.3s;
+        }
+        .snav-block:hover .snav-num { color: rgba(200,146,42,0.22); }
+
+        .snav-title {
+            font-family: var(--font-display);
+            font-size: 1.65rem;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-bottom: 0.65rem;
+        }
+        .snav-desc {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+            margin-bottom: 1.75rem;
+        }
+        .snav-link {
+            font-family: var(--font-label);
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            color: var(--gold-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+        }
+        .snav-block:hover .snav-link { color: var(--gold); }
+
+        /* ─── TRUST ─── */
+        .trust-section {
+            padding: 7rem 3rem;
+        }
+        .trust-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .trust-header {
+            margin-bottom: 4.5rem;
+            max-width: 520px;
+        }
+        .section-body {
+            font-size: 0.98rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-top: 1rem;
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3.5rem 6rem;
+        }
+
+        .trust-item-num {
+            font-family: var(--font-label);
+            font-size: 0.85rem;
+            color: var(--gold-muted);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.1em;
+        }
+        .trust-item-title {
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.6rem;
+        }
+        .trust-item-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+        }
+
+        /* ─── CTA BAND ─── */
+        .cta-band {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 6rem 3rem;
+            text-align: center;
+        }
+        .cta-band-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        .cta-band-sub {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 440px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            padding: 2.5rem 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--border);
+        }
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+        .footer-logo span { color: var(--gold-muted); }
+        .footer-copy {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+        }
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .footer-links a {
+            font-family: var(--font-label);
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--gold); }
+
+        /* ─── ANIMATION ─── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .au { animation: fadeUp 0.9s ease forwards; }
+        .d1 { animation-delay: 0.1s;  opacity: 0; }
+        .d2 { animation-delay: 0.25s; opacity: 0; }
+        .d3 { animation-delay: 0.4s;  opacity: 0; }
+        .d4 { animation-delay: 0.55s; opacity: 0; }
+        .d5 { animation-delay: 0.7s;  opacity: 0; }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 1024px) {
+            .guitar-grid { grid-template-columns: repeat(2, 1fr); }
+            .guitar-card:nth-child(3) { display: none; }
+            .sections-nav-inner { grid-template-columns: 1fr; }
+            .snav-block { border-right: none; border-bottom: 1px solid var(--border); }
+            .snav-block:last-child { border-bottom: none; }
+            .trust-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1.2rem 1.5rem; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+
+            .hero-content { padding: 7.5rem 1.5rem 4rem; }
+            .hero-guitar-wrap { display: none; }
+            .hero-scroll-hint { left: 1.5rem; }
+
+            .featured-section,
+            .trust-section { padding: 4rem 1.5rem; }
+
+            .featured-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+            .guitar-grid { grid-template-columns: 1fr; }
+            .guitar-card:nth-child(2),
+            .guitar-card:nth-child(3) { display: none; }
+
+            .statement { padding: 3.5rem 1.5rem; }
+            .cta-band { padding: 4rem 1.5rem; }
+            .snav-block { padding: 3rem 1.5rem; }
+
+            footer {
+                flex-direction: column;
+                gap: 1.25rem;
+                padding: 2rem 1.5rem;
+                text-align: center;
+            }
+            .footer-links { flex-wrap: wrap; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="nav">
+    <a href="#" class="nav-logo">Wooden <span>Valhalla</span></a>
+    <ul class="nav-links">
+        <li><a href="#collection">Collection</a></li>
+        <li><a href="#past">Past Guitars</a></li>
+        <li><a href="#for-sale">For Sale</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact" class="nav-cta">Inquire</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true">
+    <button class="mobile-close" id="mobileClose" aria-label="Close menu">✕</button>
+    <a href="#collection">Collection</a>
+    <a href="#past">Past Guitars</a>
+    <a href="#for-sale">For Sale</a>
+    <a href="#about">About</a>
+    <a href="#contact">Inquire</a>
+</div>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="top">
+    <div class="hero-bg"></div>
+
+    <!-- Decorative Les Paul silhouette -->
+    <div class="hero-guitar-wrap" aria-hidden="true">
+        <svg viewBox="0 0 280 680" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Headstock -->
+            <path d="M122 68 C122 50 117 28 112 14 L168 14 C163 28 158 50 158 68Z" fill="#c8922a"/>
+            <!-- Tuner holes -->
+            <circle cx="119" cy="20" r="4" fill="#0c0905"/>
+            <circle cx="119" cy="35" r="4" fill="#0c0905"/>
+            <circle cx="119" cy="50" r="4" fill="#0c0905"/>
+            <circle cx="161" cy="20" r="4" fill="#0c0905"/>
+            <circle cx="161" cy="35" r="4" fill="#0c0905"/>
+            <circle cx="161" cy="50" r="4" fill="#0c0905"/>
+            <!-- Nut -->
+            <rect x="128" y="66" width="24" height="4" rx="1" fill="#c8922a"/>
+            <!-- Neck -->
+            <rect x="130" y="70" width="20" height="148" rx="3" fill="#c8922a"/>
+            <!-- Frets -->
+            <line x1="130" y1="90"  x2="150" y2="90"  stroke="#0c0905" stroke-width="1.5"/>
+            <line x1="130" y1="108" x2="150" y2="108" stroke="#0c0905" stroke-width="1.5"/>
+            <line x1="130" y1="124" x2="150" y2="124" stroke="#0c0905" stroke-width="1.5"/>
+            <line x1="130" y1="138" x2="150" y2="138" stroke="#0c0905" stroke-width="1.5"/>
+            <line x1="130" y1="150" x2="150" y2="150" stroke="#0c0905" stroke-width="1.5"/>
+            <line x1="130" y1="160" x2="150" y2="160" stroke="#0c0905" stroke-width="1.5"/>
+            <line x1="130" y1="168" x2="150" y2="168" stroke="#0c0905" stroke-width="1.5"/>
+            <!-- Body — Les Paul shape with single cutaway -->
+            <path d="
+                M140 218
+                C90 218 52 252 52 302
+                C52 332 68 358 92 378
+                C106 388 114 402 110 424
+                C103 452 95 484 95 516
+                C95 598 116 654 140 668
+                C164 654 185 598 185 516
+                C185 484 177 452 170 424
+                C166 402 174 388 188 378
+                C212 358 228 332 228 302
+                C228 252 190 218 140 218Z
+            " fill="#c8922a"/>
+            <!-- Cutaway -->
+            <path d="
+                M188 378
+                C205 360 218 336 222 308
+                C226 280 222 248 210 228
+            " stroke="#0c0905" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <!-- Pickup rings -->
+            <rect x="110" y="310" width="60" height="36" rx="4" fill="#0c0905" opacity="0.6"/>
+            <rect x="110" y="360" width="60" height="36" rx="4" fill="#0c0905" opacity="0.6"/>
+            <!-- Controls -->
+            <circle cx="120" cy="435" r="7" fill="#0c0905" opacity="0.5"/>
+            <circle cx="140" cy="450" r="7" fill="#0c0905" opacity="0.5"/>
+            <circle cx="160" cy="435" r="7" fill="#0c0905" opacity="0.5"/>
+            <!-- Bridge -->
+            <rect x="118" y="272" width="44" height="10" rx="2" fill="#0c0905" opacity="0.4"/>
+        </svg>
+    </div>
+
+    <div class="hero-content">
+        <div class="hero-eyebrow au d1">Gibson Les Paul Collection &amp; Sales</div>
+        <h1 class="hero-headline au d2">
+            Not every<br>Les Paul deserves<br>your attention.<br><em>These do.</em>
+        </h1>
+        <p class="hero-sub au d3">
+            A curated collection of Gibson Les Pauls — documented honestly, sold with integrity. No bad photos. No buried refins. No seller who can't answer a real question.
+        </p>
+        <div class="hero-ctas au d4">
+            <a href="#for-sale" class="btn-gold">View For Sale</a>
+            <a href="#collection" class="btn-ghost">See the Collection</a>
+        </div>
+    </div>
+
+    <div class="hero-scroll-hint au d5">Scroll</div>
+</section>
+
+<!-- ─── STATEMENT ─── -->
+<div class="statement">
+    <div class="statement-inner">
+        <p class="statement-quote">
+            "I've owned more Les Pauls than I care to admit. Every guitar here has been played, evaluated, and photographed with the seriousness it deserves. If there's something wrong with it, <strong>I'll tell you before you have to ask.</strong>"
+        </p>
+        <div class="statement-attr">— Wooden Valhalla</div>
+    </div>
+</div>
+
+<!-- ─── FEATURED GUITARS ─── -->
+<section class="featured-section" id="collection">
+    <div class="featured-inner">
+        <div class="featured-header">
+            <div>
+                <div class="section-eyebrow">Currently In The Collection</div>
+                <h2 class="section-title">What's in<br><em>the vault</em></h2>
+            </div>
+            <a href="#collection" class="btn-ghost">View All Guitars</a>
+        </div>
+
+        <div class="guitar-grid">
+
+            <div class="guitar-card">
+                <div class="guitar-card-img">
+                    <div class="guitar-placeholder gp-burst"></div>
+                    <div class="card-overlay">
+                        <div class="card-year">1959</div>
+                        <div class="card-model">Les Paul Standard</div>
+                        <div class="card-detail">Sunburst &middot; 8.4 lbs</div>
+                    </div>
+                </div>
+                <div class="card-meta">
+                    <span class="badge">Collection</span>
+                    <span class="card-arrow">&#8594;</span>
+                </div>
+            </div>
+
+            <div class="guitar-card">
+                <div class="guitar-card-img">
+                    <div class="guitar-placeholder gp-black"></div>
+                    <div class="card-overlay">
+                        <div class="card-year">1957</div>
+                        <div class="card-model">Les Paul Custom</div>
+                        <div class="card-detail">Black Beauty &middot; 9.1 lbs</div>
+                    </div>
+                </div>
+                <div class="card-meta">
+                    <span class="badge sale">For Sale</span>
+                    <span class="card-arrow">&#8594;</span>
+                </div>
+            </div>
+
+            <div class="guitar-card">
+                <div class="guitar-card-img">
+                    <div class="guitar-placeholder gp-cherry"></div>
+                    <div class="card-overlay">
+                        <div class="card-year">1960</div>
+                        <div class="card-model">Les Paul Standard</div>
+                        <div class="card-detail">Cherry Sunburst &middot; 8.8 lbs</div>
+                    </div>
+                </div>
+                <div class="card-meta">
+                    <span class="badge">Collection</span>
+                    <span class="card-arrow">&#8594;</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ─── SECTIONS NAV ─── -->
+<div class="sections-nav" id="past">
+    <div class="sections-nav-inner">
+
+        <a href="#collection" class="snav-block">
+            <div class="snav-num">01</div>
+            <div class="snav-title">Current Collection</div>
+            <p class="snav-desc">The Les Pauls I'm holding onto. Every one has a reason for being here.</p>
+            <div class="snav-link">Browse Collection <span>&#8594;</span></div>
+        </a>
+
+        <a href="#past" class="snav-block">
+            <div class="snav-num">02</div>
+            <div class="snav-title">Past Guitars</div>
+            <p class="snav-desc">A record of every guitar that's passed through. Where it came from, where it went, and why.</p>
+            <div class="snav-link">See the Archive <span>&#8594;</span></div>
+        </a>
+
+        <a href="#for-sale" class="snav-block" id="for-sale">
+            <div class="snav-num">03</div>
+            <div class="snav-title">For Sale</div>
+            <p class="snav-desc">When I let one go, it's because the right buyer deserves it more than I do. Inquire directly.</p>
+            <div class="snav-link">View Listings <span>&#8594;</span></div>
+        </a>
+
+    </div>
+</div>
+
+<!-- ─── TRUST ─── -->
+<section class="trust-section">
+    <div class="trust-inner">
+        <div class="trust-header">
+            <div class="section-eyebrow">Why Wooden Valhalla</div>
+            <h2 class="section-title">No Reverb listings.<br><em>No surprises.</em></h2>
+            <p class="section-body">
+                You've been burned before. A refin hidden in bad lighting. Weight relief buried in the fine print. A seller who answers "great condition" to every question. That's not how this works.
+            </p>
+        </div>
+
+        <div class="trust-grid">
+            <div class="trust-item">
+                <div class="trust-item-num">01</div>
+                <div class="trust-item-title">Real Documentation</div>
+                <p class="trust-item-desc">Every guitar gets 10+ photos shot in natural light — body front and back, headstock, frets, hardware, and anything worth noting. Plus video of it being played. No tricks, no hiding the ugly stuff.</p>
+            </div>
+
+            <div class="trust-item">
+                <div class="trust-item-num">02</div>
+                <div class="trust-item-title">Honest Condition Notes</div>
+                <p class="trust-item-desc">If there's a scratch, you'll know. If the frets are worn, I'll tell you how much life is left. If a pickup was swapped at some point, that's in the description. You shouldn't have to dig for it.</p>
+            </div>
+
+            <div class="trust-item">
+                <div class="trust-item-num">03</div>
+                <div class="trust-item-title">A Track Record You Can See</div>
+                <p class="trust-item-desc">The archive of past guitars isn't just nostalgia — it shows you the kind of instruments I'm drawn to and what I look for. Taste is trust. See what's passed through here and make your own call.</p>
+            </div>
+
+            <div class="trust-item">
+                <div class="trust-item-num">04</div>
+                <div class="trust-item-title">Direct. No Middleman.</div>
+                <p class="trust-item-desc">You're not submitting a ticket. You're reaching a person who's played every guitar on this site and can answer actual questions about feel, tone, neck profile, and condition.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── CTA BAND ─── -->
+<div class="cta-band" id="contact">
+    <p class="cta-band-title">Looking for something specific?</p>
+    <p class="cta-band-sub">Tell me the year, the finish, the weight range — the more specific, the better. If it's come through here or I know where one is, I'll let you know.</p>
+    <a href="mailto:hello@woodenvalhalla.com" class="btn-gold">Get In Touch</a>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer id="about">
+    <div class="footer-logo">Wooden <span>Valhalla</span></div>
+    <p class="footer-copy">Gibson Les Paul Collection &amp; Sales</p>
+    <ul class="footer-links">
+        <li><a href="#collection">Collection</a></li>
+        <li><a href="#past">Past Guitars</a></li>
+        <li><a href="#for-sale">For Sale</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</footer>
+
+<script>
+    // Sticky nav
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+
+    hamburger.addEventListener('click', () => {
+        mobileMenu.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    });
+
+    const closeMenu = () => {
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+    };
+
+    mobileClose.addEventListener('click', closeMenu);
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+    // Scroll reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                el.style.transition = 'opacity 0.75s ease, transform 0.75s ease';
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+                revealObserver.unobserve(el);
+            }
+        });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.guitar-card, .trust-item, .snav-block, .statement-inner').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(22px)';
+        revealObserver.observe(el);
+    });
+</script>
+
+</body>
+</html>
