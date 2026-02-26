@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROI Calculator — Wooden Valhalla</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary:    #0c0905;
+            --bg-secondary:  #131009;
+            --bg-card:       #171109;
+            --bg-card-hover: #1c150b;
+            --gold:          #c8922a;
+            --gold-light:    #e8b84b;
+            --gold-muted:    #7a5818;
+            --gold-dim:      rgba(200,146,42,0.08);
+            --green:         #6ec98c;
+            --green-dim:     rgba(110,201,140,0.08);
+            --text-primary:  #f2ebe0;
+            --text-secondary:#a89880;
+            --text-muted:    #5c4f3e;
+            --border:        rgba(200,146,42,0.12);
+            --border-strong: rgba(200,146,42,0.25);
+            --font-display:  'Cormorant Garamond', serif;
+            --font-body:     'Outfit', sans-serif;
+            --font-label:    'Bebas Neue', sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-weight: 300;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Grain */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+            background-size: 200px 200px;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.35;
+        }
+
+        /* ─── NAV ─── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 3rem;
+            background: rgba(12,9,5,0.97);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(6px);
+        }
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        .nav-logo span { color: var(--gold); }
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            font-family: var(--font-label);
+            font-size: 0.82rem;
+            letter-spacing: 0.14em;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--gold-light); }
+        .nav-links a.nav-cta {
+            color: var(--gold);
+            border: 1px solid var(--gold-muted);
+            padding: 0.4rem 1.1rem;
+            transition: all 0.2s;
+        }
+        .nav-links a.nav-cta:hover {
+            background: var(--gold);
+            color: var(--bg-primary);
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+        .hamburger span {
+            display: block; width: 24px; height: 1px;
+            background: var(--text-primary);
+        }
+        .mobile-menu {
+            display: none;
+            position: fixed; inset: 0;
+            background: var(--bg-primary);
+            z-index: 199;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a {
+            font-family: var(--font-display);
+            font-size: 2.4rem;
+            font-weight: 300;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        .mobile-menu a:hover { color: var(--gold); }
+        .mobile-close {
+            position: absolute; top: 1.5rem; right: 2rem;
+            font-size: 1.8rem; cursor: pointer;
+            color: var(--text-muted);
+            background: none; border: none;
+        }
+
+        /* ─── PAGE HEADER ─── */
+        .page-header {
+            padding: 8rem 3rem 3rem;
+            max-width: 720px;
+        }
+        .page-eyebrow {
+            font-family: var(--font-label);
+            font-size: 0.72rem;
+            letter-spacing: 0.28em;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .page-eyebrow::before {
+            content: '';
+            display: block;
+            width: 36px; height: 1px;
+            background: var(--gold);
+        }
+        .page-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            font-weight: 300;
+            line-height: 1.08;
+            margin-bottom: 1.25rem;
+        }
+        .page-title em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+        .page-subtitle {
+            font-size: 1.02rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 540px;
+        }
+
+        /* ─── CALCULATOR LAYOUT ─── */
+        .calc-wrap {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 3rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* ─── INPUTS PANEL ─── */
+        .inputs-panel {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            position: sticky;
+            top: 6rem;
+        }
+        .inputs-panel-title {
+            font-family: var(--font-label);
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--gold);
+            margin-bottom: 2.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 2.5rem;
+        }
+        .input-group:last-child { margin-bottom: 0; }
+
+        .input-label {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-bottom: 0.35rem;
+        }
+        .input-sublabel {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        /* Price slider */
+        .price-display {
+            font-family: var(--font-label);
+            font-size: 2.6rem;
+            color: var(--gold-light);
+            letter-spacing: 0.02em;
+            margin-bottom: 0.75rem;
+            line-height: 1;
+        }
+        .slider-wrap {
+            position: relative;
+            width: 100%;
+            height: 36px;
+            display: flex;
+            align-items: center;
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 3px;
+            background: var(--border-strong);
+            outline: none;
+            border-radius: 2px;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 0 0 1px var(--gold-muted), 0 2px 8px rgba(0,0,0,0.4);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+            box-shadow: 0 0 0 1px var(--gold), 0 2px 12px rgba(200,146,42,0.3);
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+            border: 3px solid var(--bg-primary);
+        }
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 0.4rem;
+            font-family: var(--font-label);
+            letter-spacing: 0.1em;
+        }
+
+        /* Stepper */
+        .stepper {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            border: 1px solid var(--border-strong);
+            width: fit-content;
+        }
+        .stepper-btn {
+            width: 48px; height: 48px;
+            background: var(--bg-card);
+            border: none;
+            color: var(--gold);
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s;
+            font-family: var(--font-body);
+        }
+        .stepper-btn:hover { background: var(--bg-card-hover); }
+        .stepper-btn:active { background: var(--gold-dim); }
+        .stepper-value {
+            width: 72px; height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-label);
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            letter-spacing: 0.05em;
+        }
+
+        /* Toggle */
+        .toggle-wrap {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .toggle {
+            position: relative;
+            width: 56px; height: 30px;
+            cursor: pointer;
+        }
+        .toggle input {
+            opacity: 0;
+            width: 0; height: 0;
+            position: absolute;
+        }
+        .toggle-track {
+            position: absolute;
+            inset: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-strong);
+            border-radius: 15px;
+            transition: background 0.25s, border-color 0.25s;
+        }
+        .toggle-thumb {
+            position: absolute;
+            top: 4px; left: 4px;
+            width: 22px; height: 22px;
+            background: var(--text-muted);
+            border-radius: 50%;
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), background 0.25s;
+        }
+        .toggle input:checked ~ .toggle-track {
+            background: rgba(200,146,42,0.15);
+            border-color: var(--gold);
+        }
+        .toggle input:checked ~ .toggle-thumb {
+            transform: translateX(26px);
+            background: var(--gold);
+        }
+        .toggle-label-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: color 0.2s;
+        }
+        .toggle-label-text.active { color: var(--gold-light); }
+
+        /* ─── RESULTS PANEL ─── */
+        .results-panel {}
+
+        .result-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 2rem 2.25rem;
+            margin-bottom: 1rem;
+            transition: border-color 0.3s, background 0.3s;
+        }
+        .result-card:hover {
+            border-color: var(--border-strong);
+            background: var(--bg-card);
+        }
+
+        .result-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.65rem;
+        }
+        .result-card-num {
+            font-family: var(--font-label);
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            color: var(--gold-muted);
+            margin-bottom: 0.2rem;
+        }
+        .result-card-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .result-card-amount {
+            font-family: var(--font-label);
+            font-size: 1.8rem;
+            color: var(--gold-light);
+            white-space: nowrap;
+            letter-spacing: 0.02em;
+            min-width: 90px;
+            text-align: right;
+        }
+        .result-card-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        /* Total card */
+        .total-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--gold-muted);
+            padding: 2.5rem;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        .total-label {
+            font-family: var(--font-label);
+            font-size: 0.75rem;
+            letter-spacing: 0.22em;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+        }
+        .total-amount {
+            font-family: var(--font-label);
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            color: var(--gold-light);
+            line-height: 1;
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.01em;
+        }
+        .total-pct {
+            font-family: var(--font-label);
+            font-size: 1.1rem;
+            color: var(--green);
+            margin-bottom: 1.25rem;
+            letter-spacing: 0.08em;
+        }
+        .total-summary {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 480px;
+            margin: 0 auto 2rem;
+        }
+        .total-ctas {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-gold {
+            font-family: var(--font-label);
+            font-size: 0.82rem;
+            letter-spacing: 0.16em;
+            padding: 0.9rem 2rem;
+            background: var(--gold);
+            color: var(--bg-primary);
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.22s;
+        }
+        .btn-gold:hover {
+            background: var(--gold-light);
+            transform: translateY(-1px);
+        }
+        .btn-ghost {
+            font-family: var(--font-label);
+            font-size: 0.82rem;
+            letter-spacing: 0.16em;
+            padding: 0.9rem 2rem;
+            border: 1px solid var(--text-muted);
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.22s;
+        }
+        .btn-ghost:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            text-align: center;
+            padding: 2rem 3rem 1rem;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            padding: 2.5rem 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            color: var(--text-muted);
+        }
+        .footer-logo span { color: var(--gold-muted); }
+        .footer-copy {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .footer-links a {
+            font-family: var(--font-label);
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--gold); }
+
+        /* ─── ANIMATIONS ─── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .au { animation: fadeUp 0.8s ease forwards; }
+        .d1 { animation-delay: 0.08s; opacity: 0; }
+        .d2 { animation-delay: 0.18s; opacity: 0; }
+        .d3 { animation-delay: 0.28s; opacity: 0; }
+
+        .result-card {
+            opacity: 0;
+            transform: translateY(16px);
+        }
+        .result-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 960px) {
+            .calc-wrap {
+                grid-template-columns: 1fr;
+                padding: 2rem 1.5rem 3rem;
+            }
+            .inputs-panel {
+                position: static;
+            }
+        }
+        @media (max-width: 768px) {
+            nav { padding: 1.2rem 1.5rem; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .page-header { padding: 7rem 1.5rem 2rem; }
+            .inputs-panel { padding: 2rem 1.5rem; }
+            .result-card { padding: 1.5rem; }
+            .total-card { padding: 2rem 1.5rem; }
+            footer {
+                flex-direction: column;
+                gap: 1.25rem;
+                padding: 2rem 1.5rem;
+                text-align: center;
+            }
+            .footer-links { flex-wrap: wrap; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <a href="index.html" class="nav-logo">Wooden <span>Valhalla</span></a>
+    <ul class="nav-links">
+        <li><a href="index.html#collection">Collection</a></li>
+        <li><a href="index.html#past">Past Guitars</a></li>
+        <li><a href="index.html#for-sale">For Sale</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Inquire</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose" aria-label="Close menu">&#10005;</button>
+    <a href="index.html#collection">Collection</a>
+    <a href="index.html#past">Past Guitars</a>
+    <a href="index.html#for-sale">For Sale</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact">Inquire</a>
+</div>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+    <div class="page-eyebrow au d1">ROI Calculator</div>
+    <h1 class="page-title au d2">What's buying from<br>a marketplace <em>actually costing you?</em></h1>
+    <p class="page-subtitle au d3">Plug in your numbers. The math is conservative, the fees are real, and the risks are ones you've probably already experienced. No email required.</p>
+</header>
+
+<!-- CALCULATOR -->
+<div class="calc-wrap">
+
+    <!-- INPUTS -->
+    <div class="inputs-panel">
+        <div class="inputs-panel-title">Your Numbers</div>
+
+        <!-- Price -->
+        <div class="input-group">
+            <div class="input-label">Guitar Price</div>
+            <div class="input-sublabel">What are you shopping at? Custom Shop, reissue, limited run territory.</div>
+            <div class="price-display" id="priceDisplay">$8,000</div>
+            <div class="slider-wrap">
+                <input type="range" id="priceSlider" min="4000" max="20000" step="500" value="8000">
+            </div>
+            <div class="slider-labels">
+                <span>$4,000</span>
+                <span>$20,000</span>
+            </div>
+        </div>
+
+        <!-- Guitars bought -->
+        <div class="input-group">
+            <div class="input-label">Guitars Bought Online</div>
+            <div class="input-sublabel">In the last 3 years — Reverb, eBay, Facebook groups, wherever.</div>
+            <div class="stepper">
+                <button class="stepper-btn" data-target="guitarCount" data-dir="-1" aria-label="Decrease">&#8722;</button>
+                <div class="stepper-value" id="guitarCount">2</div>
+                <button class="stepper-btn" data-target="guitarCount" data-dir="1" aria-label="Increase">&#43;</button>
+            </div>
+        </div>
+
+        <!-- Misrepresented toggle -->
+        <div class="input-group">
+            <div class="input-label">Ever Received a Misrepresented Guitar?</div>
+            <div class="input-sublabel">Hidden refin, undisclosed pickup swap, "light wear" that wasn't light.</div>
+            <div class="toggle-wrap">
+                <label class="toggle">
+                    <input type="checkbox" id="misrepToggle">
+                    <span class="toggle-track"></span>
+                    <span class="toggle-thumb"></span>
+                </label>
+                <span class="toggle-label-text" id="misrepLabel">No</span>
+            </div>
+        </div>
+
+        <!-- Hours searching -->
+        <div class="input-group">
+            <div class="input-label">Hours Spent Searching Per Guitar</div>
+            <div class="input-sublabel">Scrolling listings, comparing photos, messaging sellers, second-guessing.</div>
+            <div class="stepper">
+                <button class="stepper-btn" data-target="hoursCount" data-dir="-1" aria-label="Decrease">&#8722;</button>
+                <div class="stepper-value" id="hoursCount">8</div>
+                <button class="stepper-btn" data-target="hoursCount" data-dir="1" aria-label="Increase">&#43;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results-panel" id="resultsPanel">
+
+        <div class="result-card" id="card-markup">
+            <div class="result-card-header">
+                <div>
+                    <div class="result-card-num">01</div>
+                    <div class="result-card-title">Marketplace Markup Avoided</div>
+                </div>
+                <div class="result-card-amount" id="val-markup">$640</div>
+            </div>
+            <div class="result-card-desc">Sellers don't eat platform fees — they price them in. Reverb's seller fee, payment processing, and promoted listing costs add ~8% to what you're paying. Buying direct means the price reflects the guitar, not the platform.</div>
+        </div>
+
+        <div class="result-card" id="card-misrep">
+            <div class="result-card-header">
+                <div>
+                    <div class="result-card-num">02</div>
+                    <div class="result-card-title">Misrepresentation Risk Avoided</div>
+                </div>
+                <div class="result-card-amount" id="val-misrep">$360</div>
+            </div>
+            <div class="result-card-desc" id="desc-misrep">You haven't been burned yet. This is what you're statistically exposed to — undisclosed refins, pickup swaps, condition issues that only show up after the case opens. Every Wooden Valhalla guitar gets 10+ photos, video, and condition notes that include the flaws.</div>
+        </div>
+
+        <div class="result-card" id="card-time">
+            <div class="result-card-header">
+                <div>
+                    <div class="result-card-num">03</div>
+                    <div class="result-card-title">Time Saved Searching</div>
+                </div>
+                <div class="result-card-amount" id="val-time">$720</div>
+            </div>
+            <div class="result-card-desc" id="desc-time">That's hours you didn't spend scrolling Reverb, zooming into blurry photos, and waiting for a seller to respond with "it's in great condition." Thorough documentation answers your questions before you have to ask them.</div>
+        </div>
+
+        <div class="result-card" id="card-docs">
+            <div class="result-card-header">
+                <div>
+                    <div class="result-card-num">04</div>
+                    <div class="result-card-title">Documentation Resale Value</div>
+                </div>
+                <div class="result-card-amount" id="val-docs">$480</div>
+            </div>
+            <div class="result-card-desc">When you sell this guitar, you'll have 10+ photos, video, serial number records, and honest condition notes from a trusted source. A guitar with real provenance holds value. A guitar with a Reverb screenshot doesn't.</div>
+        </div>
+
+        <div class="result-card" id="card-return">
+            <div class="result-card-header">
+                <div>
+                    <div class="result-card-num">05</div>
+                    <div class="result-card-title">Return &amp; Dispute Costs Avoided</div>
+                </div>
+                <div class="result-card-amount" id="val-return">$105</div>
+            </div>
+            <div class="result-card-desc" id="desc-return">Shipping a guitar back runs $200+. Add restocking fees and the hours on the phone with PayPal, and a single bad transaction costs more than the guitar's depreciation.</div>
+        </div>
+
+        <!-- TOTAL -->
+        <div class="total-card">
+            <div class="total-label">Total Value Protected</div>
+            <div class="total-amount" id="totalAmount">$2,305</div>
+            <div class="total-pct" id="totalPct">14.4% of total spend</div>
+            <p class="total-summary" id="totalSummary">Buying 2 guitars at $8,000 from a source like Wooden Valhalla protects roughly $2,305 in value you'd otherwise lose to platform fees, hidden issues, wasted time, and poor documentation.</p>
+            <div class="total-ctas">
+                <a href="index.html#for-sale" class="btn-gold">See What's Available</a>
+                <a href="index.html#contact" class="btn-ghost">Tell Me What You're Looking For</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<p class="disclaimer">All estimates are conservative and based on published marketplace fee structures, industry transaction data, and typical time-cost valuations. Your actual savings may vary. This calculator is for informational purposes only.</p>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-logo">Wooden <span>Valhalla</span></div>
+    <p class="footer-copy">Gibson Les Paul Collection &amp; Sales</p>
+    <ul class="footer-links">
+        <li><a href="index.html#collection">Collection</a></li>
+        <li><a href="index.html#for-sale">For Sale</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+</footer>
+
+<script>
+    // ─── STATE ───
+    const state = {
+        price:    8000,
+        guitars:  2,
+        misrep:   false,
+        hours:    8
+    };
+
+    const limits = {
+        guitarCount: { min: 1, max: 10 },
+        hoursCount:  { min: 2, max: 40 }
+    };
+
+    // ─── DOM REFS ───
+    const priceSlider   = document.getElementById('priceSlider');
+    const priceDisplay  = document.getElementById('priceDisplay');
+    const guitarCount   = document.getElementById('guitarCount');
+    const hoursCount    = document.getElementById('hoursCount');
+    const misrepToggle  = document.getElementById('misrepToggle');
+    const misrepLabel   = document.getElementById('misrepLabel');
+
+    const valMarkup  = document.getElementById('val-markup');
+    const valMisrep  = document.getElementById('val-misrep');
+    const valTime    = document.getElementById('val-time');
+    const valDocs    = document.getElementById('val-docs');
+    const valReturn  = document.getElementById('val-return');
+    const descMisrep = document.getElementById('desc-misrep');
+    const descTime   = document.getElementById('desc-time');
+    const descReturn = document.getElementById('desc-return');
+    const totalAmt   = document.getElementById('totalAmount');
+    const totalPct   = document.getElementById('totalPct');
+    const totalSum   = document.getElementById('totalSummary');
+
+    // ─── CALCULATION ───
+    function calculate() {
+        const p = state.price;
+        const g = state.guitars;
+        const m = state.misrep;
+        const h = state.hours;
+
+        const markup = p * 0.08;
+
+        const misrepRisk = m
+            ? p * 0.25 * 0.15 * g
+            : p * 0.15 * 0.15 * g;
+
+        const timeSaved = h * 0.60 * 75 * g;
+
+        const docsValue = p * 0.03 * g;
+
+        const returnCost = m
+            ? (200 + (p * 0.05) + (4 * 75)) * 0.25
+            : (200 + (p * 0.05) + (4 * 75)) * 0.15;
+
+        const total = markup + misrepRisk + timeSaved + docsValue + returnCost;
+        const totalSpend = p * g;
+        const pct = totalSpend > 0 ? ((total / totalSpend) * 100) : 0;
+
+        // Animate values
+        animateValue(valMarkup, markup);
+        animateValue(valMisrep, misrepRisk);
+        animateValue(valTime, timeSaved);
+        animateValue(valDocs, docsValue);
+        animateValue(valReturn, returnCost);
+        animateValue(totalAmt, total);
+
+        totalPct.textContent = pct.toFixed(1) + '% of total spend';
+
+        // Dynamic copy
+        const hoursRecovered = (h * 0.60 * g).toFixed(1);
+
+        if (m) {
+            descMisrep.textContent = "You've already seen this firsthand. Undisclosed refins, pickup swaps, condition issues that only show up when the case opens. At Wooden Valhalla, every guitar gets 10+ photos, video, and condition notes that include the flaws — not just the beauty shots.";
+        } else {
+            descMisrep.textContent = "You haven't been burned yet. This is what you're statistically exposed to — undisclosed refins, pickup swaps, condition issues that only surface after the case opens. Every Wooden Valhalla guitar gets 10+ photos, video, and condition notes that include the flaws.";
+        }
+
+        descTime.textContent = `That's ${hoursRecovered} hours you didn't spend scrolling Reverb, zooming into blurry photos, and waiting for a seller to respond with "it's in great condition." Thorough documentation answers your questions before you have to ask them.`;
+
+        totalSum.textContent = `Buying ${g} guitar${g > 1 ? 's' : ''} at $${p.toLocaleString()} from a source like Wooden Valhalla protects roughly $${Math.round(total).toLocaleString()} in value you'd otherwise lose to platform fees, hidden issues, wasted time, and poor documentation.`;
+    }
+
+    // ─── ANIMATE NUMBER ───
+    function animateValue(el, target) {
+        const current = parseInt(el.textContent.replace(/[$,]/g, '')) || 0;
+        const diff = target - current;
+        if (Math.abs(diff) < 2) {
+            el.textContent = '$' + Math.round(target).toLocaleString();
+            return;
+        }
+
+        const duration = 400;
+        const start = performance.now();
+
+        function tick(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease out cubic
+            const ease = 1 - Math.pow(1 - progress, 3);
+            const val = Math.round(current + diff * ease);
+            el.textContent = '$' + val.toLocaleString();
+            if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+    }
+
+    // ─── EVENT LISTENERS ───
+
+    // Price slider
+    priceSlider.addEventListener('input', () => {
+        state.price = parseInt(priceSlider.value);
+        priceDisplay.textContent = '$' + state.price.toLocaleString();
+        calculate();
+    });
+
+    // Steppers
+    document.querySelectorAll('.stepper-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const target = btn.dataset.target;
+            const dir = parseInt(btn.dataset.dir);
+            const el = document.getElementById(target);
+            const lim = limits[target];
+            let val = parseInt(el.textContent) + dir;
+            val = Math.max(lim.min, Math.min(lim.max, val));
+            el.textContent = val;
+
+            if (target === 'guitarCount') state.guitars = val;
+            if (target === 'hoursCount') state.hours = val;
+            calculate();
+        });
+    });
+
+    // Misrep toggle
+    misrepToggle.addEventListener('change', () => {
+        state.misrep = misrepToggle.checked;
+        misrepLabel.textContent = state.misrep ? 'Yes' : 'No';
+        misrepLabel.classList.toggle('active', state.misrep);
+        calculate();
+    });
+
+    // ─── SCROLL REVEAL ───
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.result-card, .total-card').forEach((el, i) => {
+        el.style.transitionDelay = (i * 0.08) + 's';
+        revealObserver.observe(el);
+    });
+
+    // ─── MOBILE MENU ───
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+    hamburger.addEventListener('click', () => {
+        mobileMenu.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    });
+    const closeMenu = () => {
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+    };
+    mobileClose.addEventListener('click', closeMenu);
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+    // ─── INITIAL CALCULATION ───
+    calculate();
+</script>
+
+</body>
+</html>
