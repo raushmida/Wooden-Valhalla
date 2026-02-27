@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gibson Les Paul Serial Number Lookup: How to Date & Verify Your Guitar — Wooden Valhalla</title>
+    <meta name="description" content="The definitive Gibson Les Paul serial number lookup guide. Decode every era from 1952 to present, spot fakes, and verify authenticity. Written by a collector who's checked hundreds.">
+    <meta name="keywords" content="gibson les paul serial number lookup, gibson les paul serial number, how to date gibson les paul, gibson serial number decoder">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Gibson Les Paul Serial Number Lookup: How to Date & Verify Your Guitar">
+    <meta property="og:description" content="The definitive Gibson Les Paul serial number lookup guide. Decode every era from 1952 to present, spot fakes, and verify authenticity.">
+    <meta property="og:image" content="../images/guide-serial-number.png">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Wooden Valhalla">
+
+    <!-- Schema.org Article Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Gibson Les Paul Serial Number Lookup: How to Date & Verify Your Guitar",
+        "description": "The definitive Gibson Les Paul serial number lookup guide. Decode every era from 1952 to present, spot fakes, and verify authenticity.",
+        "image": "../images/guide-serial-number.png",
+        "author": {
+            "@type": "Organization",
+            "name": "Wooden Valhalla",
+            "url": "https://woodenvalhalla.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Wooden Valhalla"
+        },
+        "datePublished": "2026-02-26",
+        "dateModified": "2026-02-26",
+        "mainEntityOfPage": {
+            "@type": "WebPage"
+        }
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary:    #0c0905;
+            --bg-secondary:  #131009;
+            --bg-card:       #1a1208;
+            --gold:          #c8922a;
+            --gold-light:    #e8b84b;
+            --gold-muted:    #7a5818;
+            --text-primary:  #f2ebe0;
+            --text-secondary:#a89880;
+            --text-muted:    #5c4f3e;
+            --border:        rgba(200,146,42,0.12);
+            --font-display:  'Cormorant Garamond', serif;
+            --font-body:     'Outfit', sans-serif;
+            --font-label:    'Bebas Neue', sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-weight: 300;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+            background-size: 200px 200px;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.35;
+        }
+
+        /* ─── NAV ─── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 3rem;
+            background: linear-gradient(to bottom, rgba(12,9,5,0.92) 0%, transparent 100%);
+            backdrop-filter: blur(6px);
+            transition: background 0.3s ease, border-bottom 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(12,9,5,0.97);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+        }
+        .nav-logo span { color: var(--gold); }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-family: var(--font-label);
+            font-size: 0.82rem;
+            letter-spacing: 0.14em;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--gold-light); }
+
+        .nav-links a.nav-cta {
+            color: var(--gold);
+            border: 1px solid var(--gold-muted);
+            padding: 0.4rem 1.1rem;
+            transition: all 0.2s;
+        }
+        .nav-links a.nav-cta:hover {
+            background: var(--gold);
+            color: var(--bg-primary);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 1px;
+            background: var(--text-primary);
+            transition: all 0.3s;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--bg-primary);
+            z-index: 199;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a {
+            font-family: var(--font-display);
+            font-size: 2.6rem;
+            font-weight: 300;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .mobile-menu a:hover { color: var(--gold); }
+        .mobile-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            background: none;
+            border: none;
+            line-height: 1;
+        }
+
+        /* ─── HERO ─── */
+        .guide-hero {
+            position: relative;
+            height: 40vh;
+            min-height: 320px;
+            max-height: 480px;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+        }
+
+        .guide-hero-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 40%;
+            opacity: 0.45;
+        }
+
+        .guide-hero-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(12,9,5,0.5) 0%,
+                rgba(12,9,5,0.2) 30%,
+                rgba(12,9,5,0.6) 70%,
+                rgba(12,9,5,1) 100%
+            );
+        }
+
+        .guide-hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 3rem 3rem;
+            max-width: 780px;
+        }
+
+        .guide-hero-eyebrow {
+            font-family: var(--font-label);
+            font-size: 0.72rem;
+            letter-spacing: 0.28em;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .guide-hero-eyebrow::before {
+            content: '';
+            display: block;
+            width: 36px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .guide-hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4.5vw, 3.2rem);
+            font-weight: 300;
+            line-height: 1.12;
+            color: var(--text-primary);
+        }
+        .guide-hero-title em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        /* ─── ARTICLE ─── */
+        .article {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 3rem 3rem 6rem;
+        }
+
+        .article p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.85;
+            margin-bottom: 1.5rem;
+        }
+
+        .article strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .article a {
+            color: var(--gold);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: var(--gold-muted);
+            transition: text-decoration-color 0.2s;
+        }
+        .article a:hover {
+            text-decoration-color: var(--gold);
+        }
+
+        .article h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+            font-weight: 400;
+            line-height: 1.15;
+            color: var(--text-primary);
+            margin: 3.5rem 0 1.25rem;
+        }
+        .article h2 em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .article h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin: 2.5rem 0 0.75rem;
+        }
+
+        .article h4 {
+            font-family: var(--font-label);
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            color: var(--gold);
+            margin: 2rem 0 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .article ul, .article ol {
+            margin: 0 0 1.5rem 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .article li {
+            font-size: 1rem;
+            line-height: 1.85;
+            margin-bottom: 0.5rem;
+        }
+
+        .article li strong {
+            color: var(--text-primary);
+        }
+
+        /* Intro paragraph — larger */
+        .article-intro {
+            font-size: 1.1rem !important;
+            color: var(--text-primary) !important;
+            line-height: 1.8 !important;
+            margin-bottom: 2rem !important;
+        }
+
+        /* ─── CALLOUT BOX ─── */
+        .callout {
+            background: var(--bg-secondary);
+            border-left: 3px solid var(--gold);
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+        }
+        .callout-label {
+            font-family: var(--font-label);
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        .callout p {
+            font-size: 0.95rem !important;
+            color: var(--text-secondary) !important;
+            margin-bottom: 0 !important;
+            line-height: 1.75 !important;
+        }
+        .callout p + p {
+            margin-top: 0.75rem !important;
+        }
+
+        /* ─── WARNING CALLOUT ─── */
+        .callout-warning {
+            background: rgba(200, 60, 40, 0.06);
+            border-left: 3px solid #c83c28;
+        }
+        .callout-warning .callout-label {
+            color: #e85d4a;
+        }
+
+        /* ─── TABLES ─── */
+        .serial-table-wrap {
+            overflow-x: auto;
+            margin: 1.5rem 0 2rem;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .serial-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            min-width: 520px;
+        }
+
+        .serial-table thead th {
+            font-family: var(--font-label);
+            font-size: 0.7rem;
+            letter-spacing: 0.16em;
+            color: var(--gold);
+            text-align: left;
+            padding: 1rem 1.25rem;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        .serial-table tbody td {
+            padding: 0.85rem 1.25rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .serial-table tbody tr:hover td {
+            background: rgba(200,146,42,0.03);
+        }
+
+        .serial-table .mono {
+            font-family: 'Courier New', monospace;
+            color: var(--gold-light);
+            font-size: 0.88rem;
+            letter-spacing: 0.06em;
+            white-space: nowrap;
+        }
+
+        .serial-table .note {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        /* ─── SECTION DIVIDER ─── */
+        .section-divider {
+            border: none;
+            height: 1px;
+            background: var(--border);
+            margin: 3.5rem 0;
+        }
+
+        /* ─── CTA BAND ─── */
+        .cta-band {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 6rem 3rem;
+            text-align: center;
+        }
+        .cta-band-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        .cta-band-sub {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .btn-gold {
+            font-family: var(--font-label);
+            font-size: 0.82rem;
+            letter-spacing: 0.16em;
+            padding: 0.9rem 2rem;
+            background: var(--gold);
+            color: var(--bg-primary);
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.22s ease;
+        }
+        .btn-gold:hover {
+            background: var(--gold-light);
+            transform: translateY(-1px);
+        }
+
+        .btn-ghost {
+            font-family: var(--font-label);
+            font-size: 0.82rem;
+            letter-spacing: 0.16em;
+            padding: 0.9rem 2rem;
+            border: 1px solid var(--text-muted);
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.22s ease;
+        }
+        .btn-ghost:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            padding: 2.5rem 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--border);
+        }
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+        .footer-logo span { color: var(--gold-muted); }
+        .footer-copy {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+        }
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .footer-links a {
+            font-family: var(--font-label);
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--gold); }
+
+        /* ─── ANIMATION ─── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .au { animation: fadeUp 0.9s ease forwards; }
+        .d1 { animation-delay: 0.1s;  opacity: 0; }
+        .d2 { animation-delay: 0.25s; opacity: 0; }
+        .d3 { animation-delay: 0.4s;  opacity: 0; }
+
+        /* Scroll reveal targets */
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.75s ease, transform 0.75s ease;
+        }
+
+        /* ─── TABLE OF CONTENTS ─── */
+        .toc {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 2rem 2.5rem;
+            margin: 2rem 0 3rem;
+        }
+        .toc-title {
+            font-family: var(--font-label);
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+        .toc ol {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            counter-reset: toc-counter;
+        }
+        .toc li {
+            counter-increment: toc-counter;
+            margin-bottom: 0.5rem;
+            font-size: 0.92rem;
+        }
+        .toc li::before {
+            content: counter(toc-counter, decimal-leading-zero) " ";
+            font-family: var(--font-label);
+            font-size: 0.72rem;
+            color: var(--gold-muted);
+            letter-spacing: 0.08em;
+            margin-right: 0.5rem;
+        }
+        .toc a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .toc a:hover {
+            color: var(--gold);
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 1024px) {
+            .article { padding: 3rem 2rem 5rem; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1.2rem 1.5rem; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+
+            .guide-hero { min-height: 260px; }
+            .guide-hero-content { padding: 0 1.5rem 2rem; }
+
+            .article {
+                padding: 2rem 1.5rem 4rem;
+            }
+
+            .callout {
+                padding: 1.25rem 1.5rem;
+            }
+
+            .serial-table thead th,
+            .serial-table tbody td {
+                padding: 0.7rem 0.85rem;
+                font-size: 0.82rem;
+            }
+
+            .toc {
+                padding: 1.5rem;
+            }
+
+            .cta-band { padding: 4rem 1.5rem; }
+
+            footer {
+                flex-direction: column;
+                gap: 1.25rem;
+                padding: 2rem 1.5rem;
+                text-align: center;
+            }
+            .footer-links { flex-wrap: wrap; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="nav">
+    <a href="../index.html" class="nav-logo">Wooden <span>Valhalla</span></a>
+    <ul class="nav-links">
+        <li><a href="../index.html#collection">Collection</a></li>
+        <li><a href="../index.html#for-sale">For Sale</a></li>
+        <li><a href="../calculator.html">Calculator</a></li>
+        <li><a href="index.html">Guides</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#contact" class="nav-cta">Inquire</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true">
+    <button class="mobile-close" id="mobileClose" aria-label="Close menu">&#10005;</button>
+    <a href="../index.html#collection">Collection</a>
+    <a href="../index.html#for-sale">For Sale</a>
+    <a href="../calculator.html">Calculator</a>
+    <a href="index.html">Guides</a>
+    <a href="../index.html#about">About</a>
+    <a href="../index.html#contact">Inquire</a>
+</div>
+
+<!-- ─── HERO ─── -->
+<section class="guide-hero">
+    <img src="../images/guide-serial-number.png" alt="Close-up of a Gibson Les Paul headstock showing the serial number stamp" class="guide-hero-img">
+    <div class="guide-hero-gradient"></div>
+    <div class="guide-hero-content">
+        <div class="guide-hero-eyebrow au d1">Guides</div>
+        <h1 class="guide-hero-title au d2">Gibson Les Paul Serial Number Lookup: <em>How to Date &amp; Verify Your Guitar</em></h1>
+    </div>
+</section>
+
+<!-- ─── ARTICLE ─── -->
+<article class="article">
+
+    <p class="article-intro au d3">You're holding a Les Paul and you want to know what it is. Maybe you just bought it. Maybe you're about to. Maybe it's been in a case for twenty years and you finally want a straight answer. The serial number is the starting point, but it's not the whole story. This guide will show you what those numbers mean, where Gibson's system falls apart, and what to look at when the serial number alone isn't enough.</p>
+
+    <!-- Table of Contents -->
+    <div class="toc reveal">
+        <div class="toc-title">In This Guide</div>
+        <ol>
+            <li><a href="#why-it-matters">Why the Serial Number Matters</a></li>
+            <li><a href="#era-1952-1960">1952 &ndash; 1960: The Golden Era</a></li>
+            <li><a href="#era-1961-1969">1961 &ndash; 1969: Transition Years</a></li>
+            <li><a href="#era-1970-1975">1970 &ndash; 1975: "MADE IN USA" Era</a></li>
+            <li><a href="#era-1977-present">1977 &ndash; Present: The 8-Digit System</a></li>
+            <li><a href="#custom-shop">Custom Shop Numbering</a></li>
+            <li><a href="#what-it-tells-you">What the Serial Number Tells You (and Doesn't)</a></li>
+            <li><a href="#red-flags">Common Red Flags</a></li>
+            <li><a href="#beyond-serial">Verifying Authenticity Beyond the Serial Number</a></li>
+        </ol>
+    </div>
+
+    <!-- ─── WHY IT MATTERS ─── -->
+    <h2 id="why-it-matters" class="reveal">Why the <em>serial number</em> matters</h2>
+
+    <p class="reveal">A Gibson Les Paul serial number is the first thing any serious buyer, seller, or collector checks. It's how you date the guitar. It's how you start to verify that what someone is selling you matches what they claim. And in a market where a legitimate 1959 Les Paul Standard can sell for $250,000+, the difference between a real number and a fake one is the difference between a retirement fund and an expensive mistake.</p>
+
+    <p class="reveal">But here's what most serial number guides won't tell you: <strong>Gibson's numbering system has never been clean.</strong> They've reused numbers. They've changed formats without telling anyone. There are documented gaps, overlaps, and outright errors in factory records. So while the serial number is essential, it's never the only thing you should be checking.</p>
+
+    <div class="callout reveal">
+        <div class="callout-label">The Bottom Line</div>
+        <p>A serial number can narrow down a guitar's production year and factory of origin. It cannot, on its own, confirm authenticity. Treat it as the first data point in a verification process, not the last.</p>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- ─── 1952-1960 ─── -->
+    <h2 id="era-1952-1960" class="reveal">1952 &ndash; 1960: <em>The Golden Era</em></h2>
+
+    <p class="reveal">The earliest Les Paul Standards and Customs used ink-stamped serial numbers on the back of the headstock. These are the guitars that launched the legend, and their numbering is the messiest of any era. Gibson was a relatively small operation in Kalamazoo, Michigan, and consistency wasn't a priority.</p>
+
+    <h3 class="reveal">What to look for</h3>
+
+    <p class="reveal">Serial numbers from this era are typically 5 to 6 digits, ink-stamped (not impressed) into the back of the headstock. The ink has often faded over 60+ years, which is normal. If the stamping looks crisp and dark on a guitar that's supposedly from 1957, that's worth questioning.</p>
+
+    <div class="serial-table-wrap reveal">
+        <table class="serial-table">
+            <thead>
+                <tr>
+                    <th>Year(s)</th>
+                    <th>Serial Range</th>
+                    <th>Format</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1952</td>
+                    <td class="mono">100 &ndash; 1500</td>
+                    <td>3&ndash;4 digits, ink stamped</td>
+                    <td class="note">Earliest Les Paul Models (goldtops)</td>
+                </tr>
+                <tr>
+                    <td>1953</td>
+                    <td class="mono">1500 &ndash; 4000</td>
+                    <td>4 digits, ink stamped</td>
+                    <td class="note">Overlaps with some 1952 numbers</td>
+                </tr>
+                <tr>
+                    <td>1953&ndash;1954</td>
+                    <td class="mono">4000 &ndash; 9999</td>
+                    <td>4 digits, ink stamped</td>
+                    <td class="note">Some Custom models begin in late '53</td>
+                </tr>
+                <tr>
+                    <td>1955</td>
+                    <td class="mono">9000 &ndash; 12000</td>
+                    <td>4&ndash;5 digits, ink stamped</td>
+                    <td class="note">Transition to 5-digit numbers</td>
+                </tr>
+                <tr>
+                    <td>1956&ndash;1957</td>
+                    <td class="mono">12000 &ndash; 25000</td>
+                    <td>5 digits, ink stamped</td>
+                    <td class="note">PAF pickups introduced in late '56</td>
+                </tr>
+                <tr>
+                    <td>1958</td>
+                    <td class="mono">25000 &ndash; 30000</td>
+                    <td>5 digits, ink stamped</td>
+                    <td class="note">First year of the Standard (sunburst)</td>
+                </tr>
+                <tr>
+                    <td>1959</td>
+                    <td class="mono">30000 &ndash; 34000</td>
+                    <td>5 digits, ink stamped</td>
+                    <td class="note">The Holy Grail year. ~1,700 made</td>
+                </tr>
+                <tr>
+                    <td>1960</td>
+                    <td class="mono">34000 &ndash; 42000</td>
+                    <td>5 digits, ink stamped</td>
+                    <td class="note">Slimmer neck profile introduced mid-year</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="callout reveal">
+        <div class="callout-label">Collector's Note</div>
+        <p>These ranges are approximate. Gibson didn't use serial numbers sequentially in many cases. A guitar stamped with a "lower" number wasn't necessarily built before a guitar with a "higher" number. The factory number (FON), usually found inside the control cavity or on the neck block, is often a more reliable dating tool for this era.</p>
+    </div>
+
+    <p class="reveal">The Factory Order Number (FON) for this era follows a pattern like <strong>Z 1234 5</strong>, where the first letter indicates the year. Key letter codes: Y = 1955, Z = 1956, with the system resetting and changing periodically. Look for the FON inside the body's control route or neck pickup cavity.</p>
+
+    <hr class="section-divider">
+
+    <!-- ─── 1961-1969 ─── -->
+    <h2 id="era-1961-1969" class="reveal">1961 &ndash; 1969: <em>Transition Years</em></h2>
+
+    <p class="reveal">This era is where Gibson's numbering gets genuinely confusing. The Les Paul Standard was discontinued in 1961 (replaced by the SG body shape, which initially kept the Les Paul name). The Les Paul Custom continued, and the Les Paul was revived in 1968. Throughout this decade, Gibson changed its numbering format multiple times and reused serial number ranges.</p>
+
+    <div class="serial-table-wrap reveal">
+        <table class="serial-table">
+            <thead>
+                <tr>
+                    <th>Year(s)</th>
+                    <th>Serial Range</th>
+                    <th>Format</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1961&ndash;1962</td>
+                    <td class="mono">42000 &ndash; 61000</td>
+                    <td>5 digits, ink stamped</td>
+                    <td class="note">Continuation of 1950s system</td>
+                </tr>
+                <tr>
+                    <td>1962&ndash;1963</td>
+                    <td class="mono">61000 &ndash; 90000</td>
+                    <td>5 digits, ink stamped</td>
+                    <td class="note">Numbers not always sequential</td>
+                </tr>
+                <tr>
+                    <td>1963&ndash;1964</td>
+                    <td class="mono">100000 &ndash; 250000</td>
+                    <td>6 digits, ink stamped</td>
+                    <td class="note">Shift to 6-digit numbers</td>
+                </tr>
+                <tr>
+                    <td>1964&ndash;1965</td>
+                    <td class="mono">250000 &ndash; 340000</td>
+                    <td>6 digits, impressed</td>
+                    <td class="note">Change from ink to impressed stamps</td>
+                </tr>
+                <tr>
+                    <td>1965&ndash;1966</td>
+                    <td class="mono">340000 &ndash; 520000</td>
+                    <td>6 digits, impressed</td>
+                    <td class="note">Production ramp-up</td>
+                </tr>
+                <tr>
+                    <td>1966&ndash;1969</td>
+                    <td class="mono">500000 &ndash; 999999</td>
+                    <td>6 digits, impressed</td>
+                    <td class="note">Significant overlaps and reuse</td>
+                </tr>
+                <tr>
+                    <td>1967&ndash;1969</td>
+                    <td class="mono">000001 &ndash; 099999</td>
+                    <td>6 digits, impressed</td>
+                    <td class="note">Sequence restarted. Easy to confuse with early '50s</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="callout-warning callout reveal">
+        <div class="callout-label">Warning: Duplicate Ranges</div>
+        <p>The 1967&ndash;1969 restart means serial numbers in the range 100&ndash;42000 exist in both the 1950s and the late 1960s. You cannot tell them apart by serial number alone. You'll need to look at other factors: impressed vs. ink stamps, pot codes, pickup types, body construction, and hardware to determine the actual era.</p>
+    </div>
+
+    <p class="reveal">A key detail from this period: Gibson was acquired by Norlin in late 1969. Pre-Norlin and post-Norlin guitars are viewed very differently by collectors, making accurate dating during this transition critical. If a seller is claiming "pre-Norlin" on a late-60s Les Paul, you need pot codes and hardware verification to back that up.</p>
+
+    <hr class="section-divider">
+
+    <!-- ─── 1970-1975 ─── -->
+    <h2 id="era-1970-1975" class="reveal">1970 &ndash; 1975: <em>The "MADE IN USA" Era</em></h2>
+
+    <p class="reveal">Gibson added "MADE IN USA" stamps to headstocks during this period, and the serial number formatting changed again. This is the Norlin era, and while the guitars from this period are often dismissed by collectors, there are legitimately good instruments in here. The numbering, however, remains unreliable.</p>
+
+    <div class="serial-table-wrap reveal">
+        <table class="serial-table">
+            <thead>
+                <tr>
+                    <th>Year(s)</th>
+                    <th>Serial Range</th>
+                    <th>Format</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1970&ndash;1972</td>
+                    <td class="mono">100000 &ndash; 600000</td>
+                    <td>6 digits, impressed</td>
+                    <td class="note">Overlaps with 1963&ndash;66 ranges</td>
+                </tr>
+                <tr>
+                    <td>1970&ndash;1972</td>
+                    <td class="mono">600000 &ndash; 999999</td>
+                    <td>6 digits, impressed</td>
+                    <td class="note">Also overlaps with 1966&ndash;69</td>
+                </tr>
+                <tr>
+                    <td>1973&ndash;1975</td>
+                    <td class="mono">000001 &ndash; 099999</td>
+                    <td>6 digits, impressed</td>
+                    <td class="note">Another restart. "MADE IN USA" stamped nearby</td>
+                </tr>
+                <tr>
+                    <td>1973&ndash;1975</td>
+                    <td class="mono">100000 &ndash; 500000</td>
+                    <td>6 digits, impressed</td>
+                    <td class="note">Numbers assigned in batches, not sequentially</td>
+                </tr>
+                <tr>
+                    <td>1975</td>
+                    <td class="mono">99XXXXX</td>
+                    <td>8 digits starting with 99</td>
+                    <td class="note">Brief transitional format before the 1977 system</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="reveal">The consistent presence of "MADE IN USA" stamped on the headstock is one of the few reliable markers of this era. If the guitar has a 6-digit serial in a range that overlaps with the 1960s but has "MADE IN USA" on the headstock, it's almost certainly a 1970s instrument. The volute (that raised ridge on the back of the headstock near the nut) also became standard around 1970 and is a strong physical indicator.</p>
+
+    <div class="callout reveal">
+        <div class="callout-label">Dating Tip</div>
+        <p>For Norlin-era Les Pauls, potentiometer date codes are your best friend. The pot code format is typically a 6- or 7-digit number like <strong>137 7520</strong>, where 137 is the manufacturer code (CTS) and 75 is the year, 20 is the week. Two reliable pot manufacturers: 137 = CTS, 304 = Stackpole. The pots were usually installed within a year of their date code.</p>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- ─── 1977-PRESENT ─── -->
+    <h2 id="era-1977-present" class="reveal">1977 &ndash; Present: <em>The 8-Digit System</em></h2>
+
+    <p class="reveal">In 1977, Gibson finally adopted a consistent numbering system that's still in use today. This is the one you'll encounter most often, and it's the one that's actually decodable without a PhD in Gibson archaeology.</p>
+
+    <h3 class="reveal">How to decode it</h3>
+
+    <p class="reveal">The 8-digit serial number encodes the year and day of production. The system works like this:</p>
+
+    <div class="callout reveal">
+        <div class="callout-label">The Formula</div>
+        <p><strong>The 1st and 5th digits combine to indicate the year.</strong> The 2nd, 3rd, and 4th digits indicate the day of the year (001&ndash;365). The 6th, 7th, and 8th digits indicate the production ranking for that day.</p>
+        <p>Format: <strong>YDDDYPPP</strong> (Y = year digits, D = day of year, P = production number)</p>
+    </div>
+
+    <h3 class="reveal">Examples</h3>
+
+    <div class="serial-table-wrap reveal">
+        <table class="serial-table">
+            <thead>
+                <tr>
+                    <th>Serial Number</th>
+                    <th>Year Digits (1st + 5th)</th>
+                    <th>Day (2nd-4th)</th>
+                    <th>Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="mono">82765501</td>
+                    <td class="mono">8_____0_ &rarr; 80</td>
+                    <td class="mono">_276____ &rarr; Day 276</td>
+                    <td>1980, October 3rd</td>
+                </tr>
+                <tr>
+                    <td class="mono">90237423</td>
+                    <td class="mono">9_____4__ &rarr; 94</td>
+                    <td class="mono">_023____ &rarr; Day 23</td>
+                    <td>1994, January 23rd</td>
+                </tr>
+                <tr>
+                    <td class="mono">03aborov</td>
+                    <td class="mono">0_____2__ &rarr; 02</td>
+                    <td class="mono">_312____ &rarr; Day 312</td>
+                    <td>2002, November 8th</td>
+                </tr>
+                <tr>
+                    <td class="mono">03121523</td>
+                    <td class="mono">0_____1__ &rarr; 01</td>
+                    <td class="mono">_312____ &rarr; Day 312</td>
+                    <td>2001, November 8th</td>
+                </tr>
+                <tr>
+                    <td class="mono">11545233</td>
+                    <td class="mono">1_____5__ &rarr; 15</td>
+                    <td class="mono">_154____ &rarr; Day 154</td>
+                    <td>2015, June 3rd</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3 class="reveal">Nashville vs. Montana</h3>
+
+    <p class="reveal">Starting in 1989, Gibson opened its Montana facility in Bozeman for acoustic production, and by the 2000s, certain electric models were being built at different facilities. The production number range (digits 6&ndash;8) can indicate the factory:</p>
+
+    <ul class="reveal">
+        <li><strong>001 &ndash; 499:</strong> Nashville, Tennessee (electric guitars)</li>
+        <li><strong>500 &ndash; 999:</strong> Bozeman, Montana (acoustic guitars, some electrics)</li>
+    </ul>
+
+    <p class="reveal">This isn't a hard rule for every year, but it's a useful general guide. A Les Paul with production digits in the 500+ range warrants a second look at what's actually going on.</p>
+
+    <div class="callout reveal">
+        <div class="callout-label">Post-2014 Note</div>
+        <p>After Gibson's ownership changes and restructuring, the numbering system has remained fundamentally the same, but there are occasional anomalies. If you're looking at a very recent guitar (2019+), the system still works, but it's always worth cross-referencing with the model's known production runs and any COA or hang tag documentation.</p>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- ─── CUSTOM SHOP ─── -->
+    <h2 id="custom-shop" class="reveal">Custom Shop <em>Numbering</em></h2>
+
+    <p class="reveal">Gibson Custom Shop guitars follow their own serial number conventions, which differ from the mainline production instruments. If you're looking at a Historic, a reissue, or any Custom Shop piece, here's what to expect.</p>
+
+    <div class="serial-table-wrap reveal">
+        <table class="serial-table">
+            <thead>
+                <tr>
+                    <th>Prefix</th>
+                    <th>Format</th>
+                    <th>Meaning</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="mono">CS</td>
+                    <td class="mono">CS XXXXX</td>
+                    <td>Custom Shop production. Number is a sequential identifier.</td>
+                </tr>
+                <tr>
+                    <td class="mono">A</td>
+                    <td class="mono">A XXXXX</td>
+                    <td>Custom Art / Historic Reissue (some years)</td>
+                </tr>
+                <tr>
+                    <td class="mono">9 XXXX</td>
+                    <td class="mono">9 followed by 4+ digits</td>
+                    <td>Older Historic Reissues (e.g., R9, R8, R0 models)</td>
+                </tr>
+                <tr>
+                    <td class="mono">R9 XXXX</td>
+                    <td class="mono">R + year model + digits</td>
+                    <td>Historic Reissue. R9 = '59 reissue, R0 = '60 reissue, etc.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="reveal">Custom Shop guitars also often feature a "Custom Shop" logo or sticker on the back of the headstock and include a Certificate of Authenticity (COA) with matching serial numbers. If someone is selling a "Custom Shop" Les Paul without the COA, it doesn't automatically mean it's fake, but it does mean you need to verify everything else more carefully.</p>
+
+    <div class="callout reveal">
+        <div class="callout-label">Reissue vs. Original</div>
+        <p>A Gibson Custom Historic '59 Les Paul reissue is a fantastic guitar. It is not a 1959 Les Paul. These are different things worth vastly different amounts of money. The serial number format makes it obvious which is which, but deceptive sellers have been known to sand headstocks and re-stamp numbers to disguise reissues as originals. If the deal seems too good on a "real" '59, it is.</p>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- ─── WHAT IT TELLS YOU ─── -->
+    <h2 id="what-it-tells-you" class="reveal">What the Serial Number <em>Tells You</em> (and Doesn't)</h2>
+
+    <h3 class="reveal">What it can tell you</h3>
+    <ul class="reveal">
+        <li><strong>Approximate production year</strong> (within 1&ndash;2 years for pre-1977 guitars, exact year for post-1977)</li>
+        <li><strong>Day of production</strong> (post-1977 only)</li>
+        <li><strong>Factory of origin</strong> (Nashville vs. Montana, post-1989)</li>
+        <li><strong>Whether it's a Custom Shop instrument</strong> (CS, R9, etc. prefixes)</li>
+        <li><strong>A starting point for authentication</strong></li>
+    </ul>
+
+    <h3 class="reveal">What it cannot tell you</h3>
+    <ul class="reveal">
+        <li><strong>Whether the guitar is all-original.</strong> A legitimate serial number doesn't mean the body, neck, pickups, or hardware haven't been swapped.</li>
+        <li><strong>Whether the guitar is a refinish.</strong> A serial number won't reveal if the finish has been stripped and redone.</li>
+        <li><strong>The guitar's exact model.</strong> Gibson used the same serial number system across all models. The number alone doesn't tell you if it's a Standard, Custom, Deluxe, or Studio.</li>
+        <li><strong>Whether the number itself is real.</strong> A forged serial number can match a legitimate format. The format being correct doesn't mean the stamp is genuine.</li>
+        <li><strong>Weight, neck profile, wood quality, or any of the things that actually determine whether you want to play it.</strong></li>
+    </ul>
+
+    <hr class="section-divider">
+
+    <!-- ─── RED FLAGS ─── -->
+    <h2 id="red-flags" class="reveal">Common <em>Red Flags</em></h2>
+
+    <p class="reveal">After looking at hundreds of Les Pauls, these are the serial number red flags that should make you slow down and ask more questions.</p>
+
+    <div class="callout-warning callout reveal">
+        <div class="callout-label">Red Flag #1: The Font Doesn't Match the Era</div>
+        <p>Gibson used specific typefaces for different eras. A 1958 Les Paul should have thin, somewhat uneven ink stamping. If the serial number on a supposedly vintage guitar looks machine-perfect or uses a font that didn't exist in that era, something is off. Compare it to known examples from the same year.</p>
+    </div>
+
+    <div class="callout-warning callout reveal">
+        <div class="callout-label">Red Flag #2: The Stamp Depth Is Wrong</div>
+        <p>Impressed numbers from the 1960s and '70s should be stamped into the wood at a consistent depth. If the digits are unevenly deep, suspiciously shallow, or appear to have been done with a different tool than Gibson used, that's a problem. Fakers often use individual number stamps instead of the multi-digit rolling stamps Gibson actually used.</p>
+    </div>
+
+    <div class="callout-warning callout reveal">
+        <div class="callout-label">Red Flag #3: The Number Decodes to an Impossible Date</div>
+        <p>Run the 8-digit decode. If the day-of-year digits give you day 400, or the year digits produce a date that predates or postdates the model's known production run, the number is wrong. Either it's a fake, a re-stamp, or (rarely) a Gibson factory error.</p>
+    </div>
+
+    <div class="callout-warning callout reveal">
+        <div class="callout-label">Red Flag #4: The Serial Number Is the Only "Proof"</div>
+        <p>If a seller's entire authentication argument is "the serial number checks out," walk away. A correct serial number is the lowest bar possible. Counterfeiters copy serial numbers from known guitars all the time. Two guitars with the same serial number means at least one of them is fake.</p>
+    </div>
+
+    <div class="callout-warning callout reveal">
+        <div class="callout-label">Red Flag #5: Evidence of Headstock Sanding</div>
+        <p>On the back of the headstock, look for signs that the surface has been sanded smooth and re-stamped. On vintage guitars, the lacquer around the serial number should show the same age and wear as the rest of the headstock. If there's a smooth, cleaner area around the number, someone may have removed the original and replaced it.</p>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- ─── BEYOND SERIAL ─── -->
+    <h2 id="beyond-serial" class="reveal">Verifying Authenticity <em>Beyond the Serial Number</em></h2>
+
+    <p class="reveal">The serial number is step one. If you're spending real money on a Les Paul, here are the other things you need to check.</p>
+
+    <h3 class="reveal">Potentiometer Date Codes</h3>
+    <p class="reveal">The pots inside the control cavity have date codes stamped on them. These are independent of the serial number and provide a second data point for dating. The pot date should be the same year as the guitar or 1&ndash;2 years earlier (Gibson bought pots in bulk). If the pot dates are 10 years newer than the claimed build year, someone swapped the electronics.</p>
+
+    <h3 class="reveal">Pickup Characteristics</h3>
+    <p class="reveal">Different eras used different pickups. A 1959 Les Paul should have PAF (Patent Applied For) humbuckers with specific bobbin colors, wire types, and magnet types. A 1970s Les Paul should have T-Top humbuckers. If the pickups don't match the era, they've been changed. That's not necessarily a dealbreaker, but it should be disclosed and priced accordingly.</p>
+
+    <h3 class="reveal">Hardware Details</h3>
+    <ul class="reveal">
+        <li><strong>Tuners:</strong> Kluson Deluxe (single-line, then double-line) for the 1950s; Grover Rotomatics starting in 1966; various depending on era after that.</li>
+        <li><strong>Bridge:</strong> ABR-1 (no wire retainer) for pre-1975; Nashville TOM after that. The bridge type is one of the most reliable era indicators.</li>
+        <li><strong>Tailpiece:</strong> Lightweight aluminum stop bar on early guitars; heavier zamac or steel later. The weight and material tell a story.</li>
+        <li><strong>Knobs:</strong> Bonnet knobs (1952&ndash;1955), top hat gold knobs (1955&ndash;1960), reflector knobs (1960s&ndash;1970s). Wrong knobs for the era mean swaps or fakes.</li>
+    </ul>
+
+    <h3 class="reveal">Body and Neck Construction</h3>
+    <ul class="reveal">
+        <li><strong>Weight:</strong> Pre-1970s Les Pauls are typically 8&ndash;9.5 lbs. Norlin-era guitars are often heavier (10+ lbs). If a "1959" weighs 11 pounds, something is wrong.</li>
+        <li><strong>Neck profile:</strong> 1959 Les Pauls have a chunky, rounded neck profile. 1960 models are noticeably slimmer. This is one of the hardest things to fake.</li>
+        <li><strong>Wood:</strong> One-piece mahogany backs vs. multi-piece vary by era. The maple top figure (flame, quilted, plain) should be consistent with what Gibson was using that year.</li>
+        <li><strong>Binding:</strong> Check the nibs at the fret ends. Original binding has nibs that taper naturally. Refret jobs and fakes often have filed-down or missing nibs.</li>
+    </ul>
+
+    <h3 class="reveal">Documentation and Provenance</h3>
+    <p class="reveal">The best protection is a documented chain of ownership. Original receipts, hang tags, case candy, warranty cards, and repair records all add credibility. For high-value vintage guitars, provenance from a known collection or a reputable dealer goes a long way. If someone is asking six figures for a guitar with zero paper trail, that's not inherently a scam, but it means every physical detail needs to be bulletproof.</p>
+
+    <div class="callout reveal">
+        <div class="callout-label">When In Doubt</div>
+        <p>Get a second opinion. Not from a forum. From someone who has held and evaluated the specific model and year you're looking at. There's no substitute for experience, and the cost of a professional appraisal is insignificant compared to the cost of buying a fake. If you're not sure about a guitar's authenticity, <strong>don't let the excitement of the deal override your judgment.</strong></p>
+    </div>
+
+</article>
+
+<!-- ─── CTA BAND ─── -->
+<div class="cta-band">
+    <p class="cta-band-title">Have a guitar you need verified?</p>
+    <p class="cta-band-sub">Send me the serial number, a few photos, and what you know. I've looked at hundreds of these and I'll give you an honest take. No charge, no obligation.</p>
+    <a href="mailto:hello@woodenvalhalla.com" class="btn-gold">Get In Touch</a>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+    <div class="footer-logo">Wooden <span>Valhalla</span></div>
+    <p class="footer-copy">Gibson Les Paul Collection &amp; Sales</p>
+    <ul class="footer-links">
+        <li><a href="../index.html#collection">Collection</a></li>
+        <li><a href="../index.html#for-sale">For Sale</a></li>
+        <li><a href="../calculator.html">Calculator</a></li>
+        <li><a href="index.html">Guides</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+</footer>
+
+<script>
+    // Sticky nav
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+
+    hamburger.addEventListener('click', () => {
+        mobileMenu.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    });
+
+    const closeMenu = () => {
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+    };
+
+    mobileClose.addEventListener('click', closeMenu);
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+    // Scroll reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+        revealObserver.observe(el);
+    });
+</script>
+
+</body>
+</html>
