@@ -56,7 +56,7 @@
             z-index: 200;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: flex-end;
             padding: 1.5rem 3rem;
             background: linear-gradient(to bottom, rgba(12,9,5,0.92) 0%, transparent 100%);
             backdrop-filter: blur(6px);
@@ -68,15 +68,17 @@
             border-bottom: 1px solid var(--border);
         }
 
-        .nav-logo {
-            font-family: var(--font-display);
-            font-size: 1.45rem;
-            font-weight: 600;
-            color: var(--text-primary);
+        .site-logo {
+            position: fixed;
+            top: 0.5rem;
+            left: 0.5rem;
+            z-index: 300;
             text-decoration: none;
-            letter-spacing: 0.02em;
         }
-        .nav-logo span { color: var(--gold); }
+        .site-logo img {
+            height: 240px;
+            width: auto;
+        }
 
         .nav-links {
             display: flex;
@@ -175,16 +177,24 @@
                 linear-gradient(135deg, #0c0905 0%, #181008 55%, #0e0b06 100%);
         }
 
-        /* Decorative Les Paul silhouette */
+        /* Hero background image */
         .hero-guitar-wrap {
             position: absolute;
-            right: 4%;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 38%;
-            max-width: 520px;
-            opacity: 0.055;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 55%;
             pointer-events: none;
+            overflow: hidden;
+        }
+        .hero-guitar-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            opacity: 0.3;
+            mask-image: linear-gradient(to left, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
         }
 
         .hero-content {
@@ -388,74 +398,15 @@
         }
         .guitar-card:hover .guitar-placeholder { transform: scale(1.05); }
 
-        /* Wood/mahogany-toned placeholders */
+        /* Guitar card images */
         .gp-burst {
-            background:
-                radial-gradient(ellipse 70% 80% at 35% 40%, #7a2d08 0%, #4a1804 35%, #1e0d02 70%, #0e0702 100%);
+            background: url('images/guitar-burst.png') center/cover no-repeat;
         }
-        .gp-burst::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: repeating-linear-gradient(
-                12deg,
-                transparent,
-                transparent 14px,
-                rgba(255,200,100,0.018) 14px,
-                rgba(255,200,100,0.018) 15px
-            );
-        }
-        .gp-burst::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse 55% 65% at 50% 38%, rgba(220,140,30,0.1) 0%, transparent 65%);
-        }
-
         .gp-black {
-            background:
-                radial-gradient(ellipse 75% 80% at 50% 40%, #1c1c1c 0%, #0e0e0e 45%, #060606 100%);
+            background: url('images/guitar-black.png') center/cover no-repeat;
         }
-        .gp-black::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: repeating-linear-gradient(
-                -8deg,
-                transparent,
-                transparent 18px,
-                rgba(255,255,255,0.012) 18px,
-                rgba(255,255,255,0.012) 19px
-            );
-        }
-        .gp-black::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse 50% 60% at 45% 35%, rgba(200,146,42,0.06) 0%, transparent 60%);
-        }
-
         .gp-cherry {
-            background:
-                radial-gradient(ellipse 70% 75% at 60% 42%, #6b1a0a 0%, #3d0f05 40%, #180802 75%, #0c0502 100%);
-        }
-        .gp-cherry::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: repeating-linear-gradient(
-                6deg,
-                transparent,
-                transparent 10px,
-                rgba(255,180,80,0.02) 10px,
-                rgba(255,180,80,0.02) 11px
-            );
-        }
-        .gp-cherry::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse 60% 70% at 50% 40%, rgba(180,80,20,0.12) 0%, transparent 65%);
+            background: url('images/guitar-cherry.png') center/cover no-repeat;
         }
 
         .card-overlay {
@@ -657,12 +608,13 @@
             border-top: 1px solid var(--border);
         }
         .footer-logo {
-            font-family: var(--font-display);
-            font-size: 1.15rem;
-            font-weight: 400;
-            color: var(--text-muted);
+            display: flex;
+            align-items: center;
         }
-        .footer-logo span { color: var(--gold-muted); }
+        .footer-logo img {
+            height: 200px;
+            width: auto;
+        }
         .footer-copy {
             font-size: 0.78rem;
             color: var(--text-muted);
@@ -738,14 +690,17 @@
 </head>
 <body>
 
+<!-- ─── LOGO (fixed, doesn't scroll) ─── -->
+<a href="#" class="site-logo"><img src="images/logo.png" alt="Wooden Valhalla"></a>
+
 <!-- ─── NAV ─── -->
 <nav id="nav">
-    <a href="#" class="nav-logo">Wooden <span>Valhalla</span></a>
     <ul class="nav-links">
         <li><a href="#collection">Collection</a></li>
         <li><a href="#past">Past Guitars</a></li>
         <li><a href="#for-sale">For Sale</a></li>
         <li><a href="calculator.html">Calculator</a></li>
+        <li><a href="guides/index.html">Guides</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact" class="nav-cta">Inquire</a></li>
     </ul>
@@ -760,6 +715,7 @@
     <a href="#collection">Collection</a>
     <a href="#past">Past Guitars</a>
     <a href="#for-sale">For Sale</a>
+    <a href="guides/index.html">Guides</a>
     <a href="#about">About</a>
     <a href="#contact">Inquire</a>
 </div>
@@ -770,58 +726,7 @@
 
     <!-- Decorative Les Paul silhouette -->
     <div class="hero-guitar-wrap" aria-hidden="true">
-        <svg viewBox="0 0 280 680" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Headstock -->
-            <path d="M122 68 C122 50 117 28 112 14 L168 14 C163 28 158 50 158 68Z" fill="#c8922a"/>
-            <!-- Tuner holes -->
-            <circle cx="119" cy="20" r="4" fill="#0c0905"/>
-            <circle cx="119" cy="35" r="4" fill="#0c0905"/>
-            <circle cx="119" cy="50" r="4" fill="#0c0905"/>
-            <circle cx="161" cy="20" r="4" fill="#0c0905"/>
-            <circle cx="161" cy="35" r="4" fill="#0c0905"/>
-            <circle cx="161" cy="50" r="4" fill="#0c0905"/>
-            <!-- Nut -->
-            <rect x="128" y="66" width="24" height="4" rx="1" fill="#c8922a"/>
-            <!-- Neck -->
-            <rect x="130" y="70" width="20" height="148" rx="3" fill="#c8922a"/>
-            <!-- Frets -->
-            <line x1="130" y1="90"  x2="150" y2="90"  stroke="#0c0905" stroke-width="1.5"/>
-            <line x1="130" y1="108" x2="150" y2="108" stroke="#0c0905" stroke-width="1.5"/>
-            <line x1="130" y1="124" x2="150" y2="124" stroke="#0c0905" stroke-width="1.5"/>
-            <line x1="130" y1="138" x2="150" y2="138" stroke="#0c0905" stroke-width="1.5"/>
-            <line x1="130" y1="150" x2="150" y2="150" stroke="#0c0905" stroke-width="1.5"/>
-            <line x1="130" y1="160" x2="150" y2="160" stroke="#0c0905" stroke-width="1.5"/>
-            <line x1="130" y1="168" x2="150" y2="168" stroke="#0c0905" stroke-width="1.5"/>
-            <!-- Body — Les Paul shape with single cutaway -->
-            <path d="
-                M140 218
-                C90 218 52 252 52 302
-                C52 332 68 358 92 378
-                C106 388 114 402 110 424
-                C103 452 95 484 95 516
-                C95 598 116 654 140 668
-                C164 654 185 598 185 516
-                C185 484 177 452 170 424
-                C166 402 174 388 188 378
-                C212 358 228 332 228 302
-                C228 252 190 218 140 218Z
-            " fill="#c8922a"/>
-            <!-- Cutaway -->
-            <path d="
-                M188 378
-                C205 360 218 336 222 308
-                C226 280 222 248 210 228
-            " stroke="#0c0905" stroke-width="3" stroke-linecap="round" fill="none"/>
-            <!-- Pickup rings -->
-            <rect x="110" y="310" width="60" height="36" rx="4" fill="#0c0905" opacity="0.6"/>
-            <rect x="110" y="360" width="60" height="36" rx="4" fill="#0c0905" opacity="0.6"/>
-            <!-- Controls -->
-            <circle cx="120" cy="435" r="7" fill="#0c0905" opacity="0.5"/>
-            <circle cx="140" cy="450" r="7" fill="#0c0905" opacity="0.5"/>
-            <circle cx="160" cy="435" r="7" fill="#0c0905" opacity="0.5"/>
-            <!-- Bridge -->
-            <rect x="118" y="272" width="44" height="10" rx="2" fill="#0c0905" opacity="0.4"/>
-        </svg>
+        <img src="images/hero-bg.png" alt="" />
     </div>
 
     <div class="hero-content">
@@ -989,12 +894,13 @@
 
 <!-- ─── FOOTER ─── -->
 <footer id="about">
-    <div class="footer-logo">Wooden <span>Valhalla</span></div>
+    <div class="footer-logo"><img src="images/logo.png" alt="Wooden Valhalla"></div>
     <p class="footer-copy">Gibson Les Paul Collection &amp; Sales</p>
     <ul class="footer-links">
         <li><a href="#collection">Collection</a></li>
         <li><a href="#past">Past Guitars</a></li>
         <li><a href="#for-sale">For Sale</a></li>
+        <li><a href="guides/index.html">Guides</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
 </footer>
