@@ -66,6 +66,8 @@
         nav.scrolled {
             background: rgba(12,9,5,0.97);
             border-bottom: 1px solid var(--border);
+            min-height: 120px;
+            padding: 2.5rem 3rem;
         }
 
         .site-logo {
@@ -74,10 +76,18 @@
             left: 0.5rem;
             z-index: 300;
             text-decoration: none;
+            transition: top 0.3s ease, transform 0.3s ease;
         }
         .site-logo img {
             height: 240px;
             width: auto;
+            transition: height 0.3s ease;
+        }
+        .site-logo.shrunk {
+            top: 0.25rem;
+        }
+        .site-logo.shrunk img {
+            height: 120px;
         }
 
         .nav-links {
@@ -89,7 +99,7 @@
 
         .nav-links a {
             font-family: var(--font-label);
-            font-size: 0.82rem;
+            font-size: 1.1rem;
             letter-spacing: 0.14em;
             color: var(--text-secondary);
             text-decoration: none;
@@ -100,7 +110,7 @@
         .nav-links a.nav-cta {
             color: var(--gold);
             border: 1px solid var(--gold-muted);
-            padding: 0.4rem 1.1rem;
+            padding: 0.5rem 1.4rem;
             transition: all 0.2s;
         }
         .nav-links a.nav-cta:hover {
@@ -917,10 +927,13 @@
 </footer>
 
 <script>
-    // Sticky nav
+    // Sticky nav + shrink logo on scroll
     const nav = document.getElementById('nav');
+    const siteLogo = document.querySelector('.site-logo');
     window.addEventListener('scroll', () => {
-        nav.classList.toggle('scrolled', window.scrollY > 60);
+        const scrolled = window.scrollY > 60;
+        nav.classList.toggle('scrolled', scrolled);
+        siteLogo.classList.toggle('shrunk', scrolled);
     }, { passive: true });
 
     // Mobile menu
