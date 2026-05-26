@@ -1,0 +1,107 @@
+// api/guitars.js — Vercel Serverless Function
+// Proxies Airtable requests so the API token is never exposed in the browser
+
+const AIRTABLE_TOKEN = process.env.AIRTABLE_TOKEN;
+const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
+const TABLE_NAME = 'Guitars';
+
+export default async function handler(req, res) {
+  // CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  if (req.method !== 'GET') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  if (!AIRTABLE_TOKEN || !AIRTABLE_BASE_ID) {
+    return res.status(500).json({ error: 'Airtable not configured' });
+  }
+
+  try {
+    const { status, featured, id } = req.query;
+
+    // Fetch single guitar by ID
+    if (id) {
+      const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${TABLE_NAME}/${id}`;
+      const response = await fetch(url, {
+        headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }
+      });
+      if (!response.ok) throw new Error(`Airtable error: ${response.status}`);
+      const record = await response.json();
+      return res.status(200).json(formatRecord(record));
+    }
+
+    // Build filter formula
+    const filters = [];
+    if (status) filters.push(`{Status} = '${status}'`);
+    if (featured === 'true') filters.push(`{Featured} = TRUE()`);
+
+    const formula = filters.length > 1
+      ? `AND(${filters.join(', ')})`
+      : filters[0] || '';
+
+    // Fetch records
+    const params = new URLSearchParams({
+      sort: JSON.stringify([{ field: 'Year', direction: 'desc' }]),
+      ...(formula && { filterByFormula: formula })
+    });
+
+    let allRecords = [];
+    let offset = null;
+
+    do {
+      if (offset) params.set('offset', offset);
+      const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${TABLE_NAME}?${params}`;
+      const response = await fetch(url, {
+        headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }
+      });
+      if (!response.ok) throw new Error(`Airtable error: ${response.status}`);
+      const data = await response.json();
+      allRecords = allRecords.concat(data.records || []);
+      offset = data.offset || null;
+    } while (offset);
+
+    const guitars = allRecords.map(formatRecord);
+    res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=120');
+    return res.status(200).json({ guitars });
+
+  } catch (err) {
+    console.error('Airtable error:', err);
+    return res.status(500).json({ error: 'Failed to fetch guitars' });
+  }
+}
+
+function formatRecord(record) {
+  const f = record.fields || {};
+  return {
+    id: record.id,
+    name: f['Name'] || '',
+    year: f['Year'] || null,
+    model: f['Model'] || '',
+    finish: f['Finish'] || '',
+    serial: f['Serial'] || '',
+    weight: f['Weight'] || null,
+    neckProfile: f['Neck Profile'] || '',
+    pickups: f['Pickups'] || '',
+    condition: f['Condition'] || '',
+    status: f['Status'] || '',
+    price: f['Price'] || null,
+    description: f['Description'] || '',
+    conditionNotes: f['Condition Notes'] || '',
+    featured: f['Featured'] || false,
+    videoUrl: f['Video URL'] || '',
+    photos: (f['Photos'] || []).map(p => ({
+      url: p.url,
+      thumb: p.thumbnails?.large?.url || p.url,
+      width: p.width,
+      height: p.height,
+      filename: p.filename
+    }))
+  };
+}

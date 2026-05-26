@@ -1,4 +1,8 @@
 {
+  "rewrites": [
+    { "source": "/api/guitars", "destination": "/api/guitars" },
+    { "source": "/api/guitars/:path*", "destination": "/api/guitars" }
+  ],
   "headers": [
     {
       "source": "/(.*)",

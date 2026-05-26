@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Sale — Wooden Valhalla</title>
+    <meta name="description" content="Gibson Les Pauls currently available for sale from Wooden Valhalla. Honest documentation, direct inquiry — no marketplace middlemen.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary:    #0c0905;
+            --bg-secondary:  #131009;
+            --bg-card:       #1a1208;
+            --gold:          #c8922a;
+            --gold-light:    #e8b84b;
+            --gold-muted:    #7a5818;
+            --text-primary:  #f2ebe0;
+            --text-secondary:#a89880;
+            --text-muted:    #5c4f3e;
+            --border:        rgba(200,146,42,0.12);
+            --green:         #6ec98c;
+            --font-display:  'Cormorant Garamond', serif;
+            --font-body:     'Outfit', sans-serif;
+            --font-label:    'Bebas Neue', sans-serif;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--bg-primary); color: var(--text-primary); font-family: var(--font-body); font-weight: 300; line-height: 1.6; overflow-x: hidden; }
+        body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"); background-size: 200px 200px; pointer-events: none; z-index: 9999; opacity: 0.35; }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: flex-end; padding: 1.5rem 3rem; background: rgba(12,9,5,0.97); border-bottom: 1px solid var(--border); backdrop-filter: blur(6px); }
+        .site-logo { position: fixed; top: 0.5rem; left: 0.5rem; z-index: 300; text-decoration: none; }
+        .site-logo img { height: 120px; width: auto; }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+        .nav-links a { font-family: var(--font-label); font-size: 1.1rem; letter-spacing: 0.14em; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--gold-light); }
+        .nav-links a.nav-cta { color: var(--gold); border: 1px solid var(--gold-muted); padding: 0.5rem 1.4rem; transition: all 0.2s; }
+        .nav-links a.nav-cta:hover { background: var(--gold); color: var(--bg-primary); }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+        .hamburger span { display: block; width: 24px; height: 1px; background: var(--text-primary); }
+        .mobile-menu { display: none; position: fixed; inset: 0; background: var(--bg-primary); z-index: 199; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a { font-family: var(--font-display); font-size: 2.6rem; font-weight: 300; color: var(--text-primary); text-decoration: none; transition: color 0.2s; }
+        .mobile-menu a:hover { color: var(--gold); }
+        .mobile-close { position: absolute; top: 1.5rem; right: 2rem; font-size: 1.8rem; cursor: pointer; color: var(--text-muted); background: none; border: none; }
+
+        .page-header { padding: 8rem 3rem 4rem; max-width: 1380px; margin: 0 auto; }
+        .page-eyebrow { font-family: var(--font-label); font-size: 0.72rem; letter-spacing: 0.28em; color: var(--gold); margin-bottom: 1rem; }
+        .page-title { font-family: var(--font-display); font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.08; color: var(--text-primary); margin-bottom: 1rem; }
+        .page-title em { font-style: italic; color: var(--gold-light); }
+        .page-desc { font-size: 1rem; color: var(--text-secondary); max-width: 520px; line-height: 1.75; }
+
+        .guitars-section { padding: 2rem 3rem 6rem; max-width: 1380px; margin: 0 auto; }
+        .guitar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+        .guitar-card { cursor: pointer; overflow: hidden; text-decoration: none; display: block; }
+        .guitar-card-img { aspect-ratio: 3/4; position: relative; overflow: hidden; background: var(--bg-card); }
+        .guitar-card-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.65s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .guitar-card:hover .guitar-card-img img { transform: scale(1.05); }
+        .guitar-no-photo { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: var(--bg-card); }
+        .card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 3.5rem 1.5rem 1.5rem; background: linear-gradient(to top, rgba(10,7,3,0.97) 0%, rgba(10,7,3,0.5) 50%, transparent 100%); pointer-events: none; }
+        .card-year { font-family: var(--font-label); font-size: 2.8rem; color: rgba(200,146,42,0.25); line-height: 1; margin-bottom: 0.2rem; }
+        .card-model { font-family: var(--font-display); font-size: 1.2rem; font-weight: 400; color: var(--text-primary); margin-bottom: 0.2rem; }
+        .card-detail { font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.04em; }
+        .card-price { font-family: var(--font-label); font-size: 1.4rem; letter-spacing: 0.06em; color: var(--green); margin-top: 0.4rem; }
+        .card-meta { padding: 1.1rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+        .badge-sale { font-family: var(--font-label); font-size: 0.62rem; letter-spacing: 0.14em; padding: 0.28rem 0.7rem; border: 1px solid rgba(80,180,100,0.35); color: var(--green); }
+        .card-arrow { font-size: 1.1rem; color: var(--text-muted); transition: all 0.2s; }
+        .guitar-card:hover .card-arrow { color: var(--gold); transform: translateX(5px); }
+
+        .skeleton { background: linear-gradient(90deg, var(--bg-card) 25%, #221a0d 50%, var(--bg-card) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+        .empty-state { grid-column: 1/-1; text-align: center; padding: 6rem 2rem; }
+        .empty-state-title { font-family: var(--font-display); font-size: 2rem; font-style: italic; color: var(--text-muted); margin-bottom: 1rem; }
+        .empty-state-sub { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 2rem; }
+        .btn-gold { font-family: var(--font-label); font-size: 0.82rem; letter-spacing: 0.16em; padding: 0.9rem 2rem; background: var(--gold); color: var(--bg-primary); text-decoration: none; display: inline-block; transition: all 0.22s ease; }
+        .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+        footer { padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); }
+        .footer-logo img { height: 120px; width: auto; }
+        .footer-copy { font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.04em; }
+        .footer-links { display: flex; gap: 2rem; list-style: none; }
+        .footer-links a { font-family: var(--font-label); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--gold); }
+
+        @media (max-width: 1024px) { .guitar-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) {
+            nav { padding: 1.2rem 1.5rem; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .page-header, .guitars-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .guitar-grid { grid-template-columns: 1fr; }
+            footer { flex-direction: column; gap: 1.25rem; padding: 2rem 1.5rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<a href="index.html" class="site-logo"><img src="images/logo.png" alt="Wooden Valhalla"></a>
+
+<nav>
+    <ul class="nav-links">
+        <li><a href="collection.html">Collection</a></li>
+        <li><a href="index.html#past">Past Guitars</a></li>
+        <li><a href="for-sale.html" class="active">For Sale</a></li>
+        <li><a href="calculator.html">Calculator</a></li>
+        <li><a href="guides/index.html">Guides</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Inquire</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true">
+    <button class="mobile-close" id="mobileClose" aria-label="Close menu">✕</button>
+    <a href="collection.html">Collection</a>
+    <a href="index.html#past">Past Guitars</a>
+    <a href="for-sale.html">For Sale</a>
+    <a href="guides/index.html">Guides</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact">Inquire</a>
+</div>
+
+<div class="page-header">
+    <div class="page-eyebrow">Available Now</div>
+    <h1 class="page-title">Guitars <em>for sale</em></h1>
+    <p class="page-desc">When I let one go, it's because the right buyer deserves it more than I do. Direct inquiry only — no platform fees, no surprises.</p>
+</div>
+
+<div class="guitars-section">
+    <div class="guitar-grid" id="guitarGrid">
+        <div class="guitar-card"><div class="guitar-card-img skeleton"></div><div class="card-meta"></div></div>
+        <div class="guitar-card"><div class="guitar-card-img skeleton"></div><div class="card-meta"></div></div>
+        <div class="guitar-card"><div class="guitar-card-img skeleton"></div><div class="card-meta"></div></div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-logo"><img src="images/logo.png" alt="Wooden Valhalla"></div>
+    <p class="footer-copy">Gibson Les Paul Collection &amp; Sales</p>
+    <ul class="footer-links">
+        <li><a href="collection.html">Collection</a></li>
+        <li><a href="for-sale.html">For Sale</a></li>
+        <li><a href="guides/index.html">Guides</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+</footer>
+
+<script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+    hamburger.addEventListener('click', () => { mobileMenu.classList.add('open'); document.body.style.overflow = 'hidden'; });
+    const closeMenu = () => { mobileMenu.classList.remove('open'); document.body.style.overflow = ''; };
+    mobileClose.addEventListener('click', closeMenu);
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+    function formatPrice(p) {
+        if (!p) return '';
+        return '$' + Number(p).toLocaleString('en-US', { minimumFractionDigits: 0 });
+    }
+
+    async function loadGuitars() {
+        const grid = document.getElementById('guitarGrid');
+        try {
+            const res = await fetch('/api/guitars?status=For Sale');
+            const data = await res.json();
+            const guitars = data.guitars || [];
+
+            if (!guitars.length) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <p class="empty-state-title">Nothing available right now.</p>
+                        <p class="empty-state-sub">Tell me what you're looking for and I'll reach out when the right one comes through.</p>
+                        <a href="mailto:hello@woodenvalhalla.com" class="btn-gold">Get In Touch</a>
+                    </div>`;
+                return;
+            }
+
+            grid.innerHTML = guitars.map(g => `
+                <a href="guitar.html?id=${g.id}" class="guitar-card">
+                    <div class="guitar-card-img">
+                        ${g.photos.length
+                            ? `<img src="${g.photos[0].thumb}" alt="${g.name}" loading="lazy">`
+                            : `<div class="guitar-no-photo"></div>`
+                        }
+                        <div class="card-overlay">
+                            <div class="card-year">${g.year || ''}</div>
+                            <div class="card-model">${g.model ? `Les Paul ${g.model}` : g.name}</div>
+                            <div class="card-detail">${[g.finish, g.weight ? `${g.weight} lbs` : ''].filter(Boolean).join(' · ')}</div>
+                            ${g.price ? `<div class="card-price">${formatPrice(g.price)}</div>` : ''}
+                        </div>
+                    </div>
+                    <div class="card-meta">
+                        <span class="badge-sale">For Sale</span>
+                        <span class="card-arrow">→</span>
+                    </div>
+                </a>
+            `).join('');
+        } catch (err) {
+            grid.innerHTML = '<div class="empty-state"><p class="empty-state-title">Could not load listings.</p><p class="empty-state-sub">Please try again shortly.</p></div>';
+        }
+    }
+
+    loadGuitars();
+</script>
+</body>
+</html>

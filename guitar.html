@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guitar Detail — Wooden Valhalla</title>
+    <meta name="description" content="Full details, photos, and condition notes for this Gibson Les Paul from Wooden Valhalla.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary:    #0c0905;
+            --bg-secondary:  #131009;
+            --bg-card:       #1a1208;
+            --gold:          #c8922a;
+            --gold-light:    #e8b84b;
+            --gold-muted:    #7a5818;
+            --text-primary:  #f2ebe0;
+            --text-secondary:#a89880;
+            --text-muted:    #5c4f3e;
+            --border:        rgba(200,146,42,0.12);
+            --green:         #6ec98c;
+            --font-display:  'Cormorant Garamond', serif;
+            --font-body:     'Outfit', sans-serif;
+            --font-label:    'Bebas Neue', sans-serif;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--bg-primary); color: var(--text-primary); font-family: var(--font-body); font-weight: 300; line-height: 1.6; overflow-x: hidden; }
+        body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"); background-size: 200px 200px; pointer-events: none; z-index: 9999; opacity: 0.35; }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: flex-end; padding: 1.5rem 3rem; background: rgba(12,9,5,0.97); border-bottom: 1px solid var(--border); backdrop-filter: blur(6px); }
+        .site-logo { position: fixed; top: 0.5rem; left: 0.5rem; z-index: 300; text-decoration: none; }
+        .site-logo img { height: 120px; width: auto; }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+        .nav-links a { font-family: var(--font-label); font-size: 1.1rem; letter-spacing: 0.14em; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--gold-light); }
+        .nav-links a.nav-cta { color: var(--gold); border: 1px solid var(--gold-muted); padding: 0.5rem 1.4rem; transition: all 0.2s; }
+        .nav-links a.nav-cta:hover { background: var(--gold); color: var(--bg-primary); }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+        .hamburger span { display: block; width: 24px; height: 1px; background: var(--text-primary); }
+        .mobile-menu { display: none; position: fixed; inset: 0; background: var(--bg-primary); z-index: 199; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a { font-family: var(--font-display); font-size: 2.6rem; font-weight: 300; color: var(--text-primary); text-decoration: none; transition: color 0.2s; }
+        .mobile-menu a:hover { color: var(--gold); }
+        .mobile-close { position: absolute; top: 1.5rem; right: 2rem; font-size: 1.8rem; cursor: pointer; color: var(--text-muted); background: none; border: none; }
+
+        /* ─── LAYOUT ─── */
+        .detail-wrap { max-width: 1380px; margin: 0 auto; padding: 8rem 3rem 6rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+
+        /* ─── GALLERY ─── */
+        .gallery { position: sticky; top: 8rem; }
+        .gallery-main { aspect-ratio: 4/5; position: relative; overflow: hidden; background: var(--bg-card); margin-bottom: 0.75rem; cursor: zoom-in; }
+        .gallery-main img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease; }
+        .gallery-thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; }
+        .thumb { aspect-ratio: 1; overflow: hidden; cursor: pointer; opacity: 0.55; transition: opacity 0.2s; border: 1px solid transparent; }
+        .thumb:hover, .thumb.active { opacity: 1; border-color: var(--gold-muted); }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .gallery-skeleton { aspect-ratio: 4/5; background: linear-gradient(90deg, var(--bg-card) 25%, #221a0d 50%, var(--bg-card) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+        /* ─── INFO ─── */
+        .guitar-info { padding-top: 0.5rem; }
+        .back-link { font-family: var(--font-label); font-size: 0.72rem; letter-spacing: 0.16em; color: var(--text-muted); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; transition: color 0.2s; }
+        .back-link:hover { color: var(--gold); }
+        .guitar-eyebrow { font-family: var(--font-label); font-size: 0.72rem; letter-spacing: 0.25em; color: var(--gold); margin-bottom: 0.75rem; }
+        .guitar-title { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; line-height: 1.1; color: var(--text-primary); margin-bottom: 0.5rem; }
+        .guitar-finish { font-size: 1rem; color: var(--text-secondary); margin-bottom: 1.5rem; }
+
+        .badge { display: inline-block; font-family: var(--font-label); font-size: 0.62rem; letter-spacing: 0.14em; padding: 0.3rem 0.8rem; border: 1px solid var(--gold-muted); color: var(--gold); margin-bottom: 1.5rem; }
+        .badge.sale { border-color: rgba(80,180,100,0.35); color: var(--green); }
+        .badge.archive { border-color: var(--text-muted); color: var(--text-muted); }
+
+        .price { font-family: var(--font-label); font-size: 2.2rem; letter-spacing: 0.06em; color: var(--green); margin-bottom: 1.5rem; }
+
+        .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.1rem; border-top: 1px solid var(--border); margin-bottom: 2rem; }
+        .spec-row { padding: 0.8rem 0; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.15rem; }
+        .spec-label { font-family: var(--font-label); font-size: 0.62rem; letter-spacing: 0.16em; color: var(--text-muted); }
+        .spec-value { font-size: 0.92rem; color: var(--text-primary); }
+
+        .section-heading { font-family: var(--font-label); font-size: 0.72rem; letter-spacing: 0.22em; color: var(--gold-muted); margin-bottom: 0.75rem; margin-top: 2rem; }
+        .description { font-size: 0.97rem; color: var(--text-secondary); line-height: 1.85; white-space: pre-line; }
+        .condition-notes { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.8; padding: 1.25rem 1.5rem; border-left: 2px solid var(--gold-muted); background: rgba(200,146,42,0.04); white-space: pre-line; }
+
+        .video-wrap { margin-top: 2rem; }
+        .video-embed { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+        .video-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+        .inquire-block { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+        .btn-gold { font-family: var(--font-label); font-size: 0.82rem; letter-spacing: 0.16em; padding: 1rem 2.5rem; background: var(--gold); color: var(--bg-primary); text-decoration: none; display: inline-block; transition: all 0.22s ease; }
+        .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+        .inquire-note { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.75rem; }
+
+        /* ─── LIGHTBOX ─── */
+        .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 1000; align-items: center; justify-content: center; }
+        .lightbox.open { display: flex; }
+        .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
+        .lightbox-close { position: absolute; top: 1.5rem; right: 2rem; font-size: 2rem; color: var(--text-muted); cursor: pointer; background: none; border: none; transition: color 0.2s; }
+        .lightbox-close:hover { color: var(--text-primary); }
+
+        /* ─── ERROR / LOADING ─── */
+        .loading-wrap { max-width: 1380px; margin: 0 auto; padding: 8rem 3rem; }
+        .error-state { text-align: center; padding: 4rem; }
+        .error-state p { font-family: var(--font-display); font-size: 1.5rem; font-style: italic; color: var(--text-muted); margin-bottom: 1.5rem; }
+
+        footer { padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); }
+        .footer-logo img { height: 120px; width: auto; }
+        .footer-copy { font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.04em; }
+        .footer-links { display: flex; gap: 2rem; list-style: none; }
+        .footer-links a { font-family: var(--font-label); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--gold); }
+
+        @media (max-width: 1024px) { .detail-wrap { grid-template-columns: 1fr; gap: 3rem; } .gallery { position: static; } }
+        @media (max-width: 768px) {
+            nav { padding: 1.2rem 1.5rem; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .detail-wrap { padding: 8rem 1.5rem 4rem; }
+            .specs-grid { grid-template-columns: 1fr; }
+            footer { flex-direction: column; gap: 1.25rem; padding: 2rem 1.5rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<a href="index.html" class="site-logo"><img src="images/logo.png" alt="Wooden Valhalla"></a>
+
+<nav>
+    <ul class="nav-links">
+        <li><a href="collection.html">Collection</a></li>
+        <li><a href="index.html#past">Past Guitars</a></li>
+        <li><a href="for-sale.html">For Sale</a></li>
+        <li><a href="calculator.html">Calculator</a></li>
+        <li><a href="guides/index.html">Guides</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Inquire</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true">
+    <button class="mobile-close" id="mobileClose" aria-label="Close menu">✕</button>
+    <a href="collection.html">Collection</a>
+    <a href="index.html#past">Past Guitars</a>
+    <a href="for-sale.html">For Sale</a>
+    <a href="guides/index.html">Guides</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact">Inquire</a>
+</div>
+
+<div id="pageContent">
+    <div class="loading-wrap">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;">
+            <div class="gallery-skeleton"></div>
+            <div style="padding-top:3rem;">
+                <div style="height:12px;width:80px;background:#221a0d;margin-bottom:1.5rem;border-radius:2px;"></div>
+                <div style="height:40px;width:70%;background:#221a0d;margin-bottom:1rem;border-radius:2px;"></div>
+                <div style="height:16px;width:50%;background:#1a1208;border-radius:2px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+    <img id="lightboxImg" src="" alt="">
+</div>
+
+<footer>
+    <div class="footer-logo"><img src="images/logo.png" alt="Wooden Valhalla"></div>
+    <p class="footer-copy">Gibson Les Paul Collection &amp; Sales</p>
+    <ul class="footer-links">
+        <li><a href="collection.html">Collection</a></li>
+        <li><a href="for-sale.html">For Sale</a></li>
+        <li><a href="guides/index.html">Guides</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+</footer>
+
+<script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+    hamburger.addEventListener('click', () => { mobileMenu.classList.add('open'); document.body.style.overflow = 'hidden'; });
+    const closeMenu = () => { mobileMenu.classList.remove('open'); document.body.style.overflow = ''; };
+    mobileClose.addEventListener('click', closeMenu);
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('open'));
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+
+    function openLightbox(url) {
+        lightboxImg.src = url;
+        lightbox.classList.add('open');
+    }
+
+    function formatPrice(p) {
+        if (!p) return '';
+        return '$' + Number(p).toLocaleString('en-US', { minimumFractionDigits: 0 });
+    }
+
+    function getYouTubeId(url) {
+        if (!url) return null;
+        const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^&\n?#]+)/);
+        return match ? match[1] : null;
+    }
+
+    function getBackLink(status) {
+        if (status === 'For Sale') return { href: 'for-sale.html', label: '← For Sale' };
+        if (status === 'Archive') return { href: 'index.html#past', label: '← Past Guitars' };
+        return { href: 'collection.html', label: '← Collection' };
+    }
+
+    function renderGuitar(g) {
+        const back = getBackLink(g.status);
+        const badgeClass = g.status === 'For Sale' ? 'sale' : g.status === 'Archive' ? 'archive' : '';
+        const youtubeId = getYouTubeId(g.videoUrl);
+        const specs = [
+            { label: 'Year', value: g.year },
+            { label: 'Model', value: g.model ? `Les Paul ${g.model}` : '' },
+            { label: 'Finish', value: g.finish },
+            { label: 'Weight', value: g.weight ? `${g.weight} lbs` : '' },
+            { label: 'Serial', value: g.serial },
+            { label: 'Neck Profile', value: g.neckProfile },
+            { label: 'Pickups', value: g.pickups },
+            { label: 'Condition', value: g.condition },
+        ].filter(s => s.value);
+
+        // Update page title
+        document.title = `${g.name} — Wooden Valhalla`;
+
+        document.getElementById('pageContent').innerHTML = `
+            <div class="detail-wrap">
+                <!-- Gallery -->
+                <div class="gallery">
+                    <div class="gallery-main" id="galleryMain">
+                        ${g.photos.length
+                            ? `<img id="mainPhoto" src="${g.photos[0].url}" alt="${g.name}">`
+                            : `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:0.85rem;letter-spacing:0.1em;">No Photos Yet</div>`
+                        }
+                    </div>
+                    ${g.photos.length > 1 ? `
+                    <div class="gallery-thumbs">
+                        ${g.photos.map((p, i) => `
+                            <div class="thumb ${i === 0 ? 'active' : ''}" data-index="${i}" data-url="${p.url}">
+                                <img src="${p.thumb}" alt="Photo ${i+1}" loading="lazy">
+                            </div>
+                        `).join('')}
+                    </div>` : ''}
+                </div>
+
+                <!-- Info -->
+                <div class="guitar-info">
+                    <a href="${back.href}" class="back-link">← ${back.label.replace('← ', '')}</a>
+                    <div class="guitar-eyebrow">Gibson Les Paul</div>
+                    <h1 class="guitar-title">${g.name}</h1>
+                    <p class="guitar-finish">${g.finish}${g.weight ? ` · ${g.weight} lbs` : ''}</p>
+                    <span class="badge ${badgeClass}">${g.status}</span>
+                    ${g.price ? `<div class="price">${formatPrice(g.price)}</div>` : ''}
+
+                    <div class="specs-grid">
+                        ${specs.map(s => `
+                            <div class="spec-row">
+                                <span class="spec-label">${s.label}</span>
+                                <span class="spec-value">${s.value}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    ${g.description ? `
+                        <div class="section-heading">About This Guitar</div>
+                        <p class="description">${g.description}</p>
+                    ` : ''}
+
+                    ${g.conditionNotes ? `
+                        <div class="section-heading">Condition Notes</div>
+                        <div class="condition-notes">${g.conditionNotes}</div>
+                    ` : ''}
+
+                    ${youtubeId ? `
+                        <div class="video-wrap">
+                            <div class="section-heading">Video</div>
+                            <div class="video-embed">
+                                <iframe src="https://www.youtube.com/embed/${youtubeId}" allowfullscreen title="${g.name} video"></iframe>
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    ${g.status === 'For Sale' ? `
+                        <div class="inquire-block">
+                            <a href="mailto:hello@woodenvalhalla.com?subject=Inquiry: ${encodeURIComponent(g.name)}&body=Hi, I'm interested in the ${encodeURIComponent(g.name)}." class="btn-gold" id="inquireBtn">Inquire About This Guitar</a>
+                            <p class="inquire-note">Direct email — no forms, no middlemen. I'll respond within 24 hours.</p>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+
+        // Gallery interactivity
+        const mainPhoto = document.getElementById('mainPhoto');
+        if (mainPhoto && g.photos.length) {
+            document.getElementById('galleryMain').addEventListener('click', () => {
+                openLightbox(mainPhoto.src);
+            });
+            document.querySelectorAll('.thumb').forEach(thumb => {
+                thumb.addEventListener('click', () => {
+                    document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+                    thumb.classList.add('active');
+                    mainPhoto.src = thumb.dataset.url;
+                });
+            });
+        }
+    }
+
+    async function loadGuitar() {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+
+        if (!id) {
+            document.getElementById('pageContent').innerHTML = `
+                <div class="loading-wrap">
+                    <div class="error-state">
+                        <p>Guitar not found.</p>
+                        <a href="collection.html" class="btn-gold">Back to Collection</a>
+                    </div>
+                </div>`;
+            return;
+        }
+
+        try {
+            const res = await fetch(`/api/guitars?id=${id}`);
+            if (!res.ok) throw new Error('Not found');
+            const guitar = await res.json();
+            renderGuitar(guitar);
+        } catch (err) {
+            document.getElementById('pageContent').innerHTML = `
+                <div class="loading-wrap">
+                    <div class="error-state">
+                        <p>Could not load this guitar.</p>
+                        <a href="collection.html" class="btn-gold">Back to Collection</a>
+                    </div>
+                </div>`;
+        }
+    }
+
+    loadGuitar();
+</script>
+</body>
+</html>
