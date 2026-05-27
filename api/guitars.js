@@ -52,8 +52,6 @@ module.exports = async function handler(req, res) {
 
     do {
       const params = new URLSearchParams();
-      params.set('sort[0][field]', 'Year');
-      params.set('sort[0][direction]', 'desc');
       if (formula) params.set('filterByFormula', formula);
       if (offset) params.set('offset', offset);
 
@@ -70,7 +68,13 @@ module.exports = async function handler(req, res) {
       offset = data.offset || null;
     } while (offset);
 
-    const guitars = allRecords.map(formatRecord);
+    // Sort: Sort Order ascending (blanks last), then Year descending
+    const guitars = allRecords.map(formatRecord).sort((a, b) => {
+      const aOrder = a.sortOrder || 9999;
+      const bOrder = b.sortOrder || 9999;
+      if (aOrder !== bOrder) return aOrder - bOrder;
+      return (b.year || 0) - (a.year || 0);
+    });
     res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=120');
     return res.status(200).json({ guitars });
 
@@ -95,6 +99,7 @@ function formatRecord(record) {
     pickups: f['Pickups'] || '',
     condition: f['Condition'] || '',
     status: f['Status'] || '',
+    sortOrder: f['Sort Order'] || null,
     price: f['Price'] || null,
     description: f['Description'] || '',
     conditionNotes: f['Condition Notes'] || '',
