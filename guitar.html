@@ -186,7 +186,7 @@
 <nav>
     <ul class="nav-links">
         <li><a href="collection.html">Collection</a></li>
-        <li><a href="index.html#past">Past Guitars</a></li>
+        <li><a href="archive.html">Past Guitars</a></li>
         <li><a href="for-sale.html">For Sale</a></li>
         <li><a href="calculator.html">Calculator</a></li>
         <li><a href="guides/index.html">Guides</a></li>
@@ -201,7 +201,7 @@
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true">
     <button class="mobile-close" id="mobileClose" aria-label="Close menu">✕</button>
     <a href="collection.html">Collection</a>
-    <a href="index.html#past">Past Guitars</a>
+    <a href="archive.html">Past Guitars</a>
     <a href="for-sale.html">For Sale</a>
     <a href="guides/index.html">Guides</a>
     <a href="index.html#about">About</a>
@@ -278,7 +278,7 @@
 
     function getBackLink(status) {
         if (status === 'For Sale') return { href: 'for-sale.html', label: '← For Sale' };
-        if (status === 'Archive') return { href: 'index.html#past', label: '← Past Guitars' };
+        if (status === 'Archive') return { href: 'archive.html', label: '← Past Guitars' };
         return { href: 'collection.html', label: '← Collection' };
     }
 

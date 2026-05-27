@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Sale — Wooden Valhalla</title>
-    <meta name="description" content="Gibson Les Pauls currently available for sale from Wooden Valhalla. Honest documentation, direct inquiry — no marketplace middlemen.">
+    <title>Past Guitars — Wooden Valhalla</title>
+    <meta name="description" content="Gibson Les Pauls that have passed through the Wooden Valhalla collection. Every guitar documented with full photos, specs, and the story of why it moved on.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -20,7 +20,6 @@
             --text-secondary:#a89880;
             --text-muted:    #5c4f3e;
             --border:        rgba(200,146,42,0.12);
-            --green:         #6ec98c;
             --font-display:  'Cormorant Garamond', serif;
             --font-body:     'Outfit', sans-serif;
             --font-label:    'Bebas Neue', sans-serif;
@@ -52,31 +51,35 @@
         .page-title em { font-style: italic; color: var(--gold-light); }
         .page-desc { font-size: 1rem; color: var(--text-secondary); max-width: 520px; line-height: 1.75; }
 
-        .guitars-section { padding: 2rem 3rem 6rem; max-width: 1380px; margin: 0 auto; }
+        /* Subtle divider line under header */
+        .page-divider { max-width: 1380px; margin: 0 auto 0; padding: 0 3rem; }
+        .page-divider hr { border: none; border-top: 1px solid var(--border); margin-bottom: 3rem; }
+
+        .guitars-section { padding: 0 3rem 6rem; max-width: 1380px; margin: 0 auto; }
         .guitar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
 
+        /* Archive cards are slightly desaturated to signal "past" */
         .guitar-card { cursor: pointer; overflow: hidden; text-decoration: none; display: block; }
         .guitar-card-img { aspect-ratio: 3/4; position: relative; overflow: hidden; background: var(--bg-card); }
-        .guitar-card-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.65s cubic-bezier(0.25,0.46,0.45,0.94); }
-        .guitar-card:hover .guitar-card-img img { transform: scale(1.05); }
-        .guitar-no-photo { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: var(--bg-card); }
+        .guitar-card-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.65s cubic-bezier(0.25,0.46,0.45,0.94); filter: grayscale(20%); }
+        .guitar-card:hover .guitar-card-img img { transform: scale(1.05); filter: grayscale(0%); }
+        .guitar-no-photo { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+        .guitar-no-photo svg { opacity: 0.08; width: 80px; height: 80px; }
         .card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 5rem 1.5rem 1.5rem; background: linear-gradient(to top, rgba(6,4,1,0.98) 0%, rgba(6,4,1,0.82) 35%, rgba(6,4,1,0.3) 65%, transparent 100%); pointer-events: none; }
         .card-model { font-family: var(--font-display); font-size: 1.35rem; font-weight: 400; color: var(--text-primary); margin-bottom: 0.4rem; line-height: 1.2; text-shadow: 0 1px 10px rgba(0,0,0,0.95); }
         .card-detail { font-size: 0.8rem; color: var(--text-secondary); letter-spacing: 0.02em; line-height: 1.6; text-shadow: 0 1px 8px rgba(0,0,0,0.95); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .card-price { font-family: var(--font-label); font-size: 1.4rem; letter-spacing: 0.06em; color: var(--green); margin-top: 0.4rem; }
         .card-meta { padding: 1.1rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-        .badge-sale { font-family: var(--font-label); font-size: 0.62rem; letter-spacing: 0.14em; padding: 0.28rem 0.7rem; border: 1px solid rgba(80,180,100,0.35); color: var(--green); }
+        .badge-archive { font-family: var(--font-label); font-size: 0.62rem; letter-spacing: 0.14em; padding: 0.28rem 0.7rem; border: 1px solid var(--text-muted); color: var(--text-muted); }
         .card-arrow { font-size: 1.1rem; color: var(--text-muted); transition: all 0.2s; }
         .guitar-card:hover .card-arrow { color: var(--gold); transform: translateX(5px); }
 
         .skeleton { background: linear-gradient(90deg, var(--bg-card) 25%, #221a0d 50%, var(--bg-card) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
         @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        .skeleton-card .guitar-card-img { background: var(--bg-card); }
+        .skeleton-card .skeleton-bar { height: 12px; border-radius: 2px; margin: 8px 0; }
 
         .empty-state { grid-column: 1/-1; text-align: center; padding: 6rem 2rem; }
-        .empty-state-title { font-family: var(--font-display); font-size: 2rem; font-style: italic; color: var(--text-muted); margin-bottom: 1rem; }
-        .empty-state-sub { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 2rem; }
-        .btn-gold { font-family: var(--font-label); font-size: 0.82rem; letter-spacing: 0.16em; padding: 0.9rem 2rem; background: var(--gold); color: var(--bg-primary); text-decoration: none; display: inline-block; transition: all 0.22s ease; }
-        .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+        .empty-state p { font-family: var(--font-display); font-size: 1.5rem; font-style: italic; color: var(--text-muted); }
 
         footer { padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); }
         .footer-logo img { height: 120px; width: auto; }
@@ -100,11 +103,11 @@
 
 <a href="index.html" class="site-logo"><img src="images/logo.png" alt="Wooden Valhalla"></a>
 
-<nav>
+<nav id="nav">
     <ul class="nav-links">
         <li><a href="collection.html">Collection</a></li>
-        <li><a href="archive.html">Past Guitars</a></li>
-        <li><a href="for-sale.html" class="active">For Sale</a></li>
+        <li><a href="archive.html" class="active">Past Guitars</a></li>
+        <li><a href="for-sale.html">For Sale</a></li>
         <li><a href="calculator.html">Calculator</a></li>
         <li><a href="guides/index.html">Guides</a></li>
         <li><a href="index.html#about">About</a></li>
@@ -126,16 +129,19 @@
 </div>
 
 <div class="page-header">
-    <div class="page-eyebrow">Available Now</div>
-    <h1 class="page-title">Guitars <em>for sale</em></h1>
-    <p class="page-desc">When I let one go, it's because the right buyer deserves it more than I do. Direct inquiry only — no platform fees, no surprises.</p>
+    <div class="page-eyebrow">Guitars That Have Passed Through</div>
+    <h1 class="page-title">The ones<br><em>that got away</em></h1>
+    <p class="page-desc">Every guitar I've owned, documented and remembered. Some were sold to the right buyer. Some I still think about.</p>
 </div>
+
+<div class="page-divider"><hr></div>
 
 <div class="guitars-section">
     <div class="guitar-grid" id="guitarGrid">
-        <div class="guitar-card"><div class="guitar-card-img skeleton"></div><div class="card-meta"></div></div>
-        <div class="guitar-card"><div class="guitar-card-img skeleton"></div><div class="card-meta"></div></div>
-        <div class="guitar-card"><div class="guitar-card-img skeleton"></div><div class="card-meta"></div></div>
+        <!-- Skeletons -->
+        <div class="skeleton-card guitar-card"><div class="guitar-card-img skeleton"></div><div class="card-meta"><div class="skeleton skeleton-bar" style="width:60px"></div></div></div>
+        <div class="skeleton-card guitar-card"><div class="guitar-card-img skeleton"></div><div class="card-meta"><div class="skeleton skeleton-bar" style="width:60px"></div></div></div>
+        <div class="skeleton-card guitar-card"><div class="guitar-card-img skeleton"></div><div class="card-meta"><div class="skeleton skeleton-bar" style="width:60px"></div></div></div>
     </div>
 </div>
 
@@ -151,6 +157,7 @@
 </footer>
 
 <script>
+    // Mobile menu
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     const mobileClose = document.getElementById('mobileClose');
@@ -159,49 +166,39 @@
     mobileClose.addEventListener('click', closeMenu);
     mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
-    function formatPrice(p) {
-        if (!p) return '';
-        return '$' + Number(p).toLocaleString('en-US', { minimumFractionDigits: 0 });
+    function renderGuitars(guitars) {
+        const grid = document.getElementById('guitarGrid');
+        if (!guitars.length) {
+            grid.innerHTML = '<div class="empty-state"><p>No past guitars yet — check back once some have moved on.</p></div>';
+            return;
+        }
+        grid.innerHTML = guitars.map(g => `
+            <a href="guitar.html?id=${g.id}" class="guitar-card">
+                <div class="guitar-card-img">
+                    ${g.photos.length
+                        ? `<img src="${g.photos[0].thumb}" alt="${g.name}" loading="lazy">`
+                        : `<div class="guitar-no-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z"/></svg></div>`
+                    }
+                    <div class="card-overlay">
+                        <div class="card-model">${g.name}</div>
+                        <div class="card-detail">${[g.year, g.model, g.specialRun, g.finish].filter(Boolean).join(' · ')}</div>
+                    </div>
+                </div>
+                <div class="card-meta">
+                    <span class="badge-archive">Archive</span>
+                    <span class="card-arrow">→</span>
+                </div>
+            </a>
+        `).join('');
     }
 
     async function loadGuitars() {
-        const grid = document.getElementById('guitarGrid');
         try {
-            const res = await fetch('/api/guitars?status=For Sale');
+            const res = await fetch('/api/guitars?status=Archive');
             const data = await res.json();
-            const guitars = data.guitars || [];
-
-            if (!guitars.length) {
-                grid.innerHTML = `
-                    <div class="empty-state">
-                        <p class="empty-state-title">Nothing available right now.</p>
-                        <p class="empty-state-sub">Tell me what you're looking for and I'll reach out when the right one comes through.</p>
-                        <a href="mailto:hello@woodenvalhalla.com" class="btn-gold">Get In Touch</a>
-                    </div>`;
-                return;
-            }
-
-            grid.innerHTML = guitars.map(g => `
-                <a href="guitar.html?id=${g.id}" class="guitar-card">
-                    <div class="guitar-card-img">
-                        ${g.photos.length
-                            ? `<img src="${g.photos[0].thumb}" alt="${g.name}" loading="lazy">`
-                            : `<div class="guitar-no-photo"></div>`
-                        }
-                        <div class="card-overlay">
-                            <div class="card-model">${g.name}</div>
-                            <div class="card-detail">${[g.year, g.model, g.specialRun, g.finish].filter(Boolean).join(' · ')}</div>
-                            ${g.price ? `<div class="card-price">${formatPrice(g.price)}</div>` : ''}
-                        </div>
-                    </div>
-                    <div class="card-meta">
-                        <span class="badge-sale">For Sale</span>
-                        <span class="card-arrow">→</span>
-                    </div>
-                </a>
-            `).join('');
+            renderGuitars(data.guitars || []);
         } catch (err) {
-            grid.innerHTML = '<div class="empty-state"><p class="empty-state-title">Could not load listings.</p><p class="empty-state-sub">Please try again shortly.</p></div>';
+            document.getElementById('guitarGrid').innerHTML = '<div class="empty-state"><p>Could not load archive. Please try again.</p></div>';
         }
     }
 
