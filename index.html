@@ -952,7 +952,7 @@
 
             if (!guitars.length) {
                 // Fall back to showing collection guitars if none are featured
-                const res2 = await fetch('/api/guitars?status=Collection');
+                const res2 = await fetch('/api/guitars?status=Current Collection');
                 const data2 = await res2.json();
                 const fallback = (data2.guitars || []).slice(0, 3);
                 if (!fallback.length) { grid.innerHTML = ''; return; }
@@ -978,7 +978,7 @@
                         }
                         <div class="card-overlay">
                             <div class="card-year">${g.year || ''}</div>
-                            <div class="card-model">${g.model ? 'Les Paul ' + g.model : g.name}</div>
+                            <div class="card-model">${g.name}</div>
                             <div class="card-detail">${[g.finish, g.weight ? g.weight + ' lbs' : ''].filter(Boolean).join(' · ')}</div>
                         </div>
                     </div>

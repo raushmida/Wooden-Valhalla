@@ -66,7 +66,7 @@
         .back-link:hover { color: var(--gold); }
         .guitar-eyebrow { font-family: var(--font-label); font-size: 0.72rem; letter-spacing: 0.25em; color: var(--gold); margin-bottom: 0.75rem; }
         .guitar-title { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; line-height: 1.1; color: var(--text-primary); margin-bottom: 0.5rem; }
-        .guitar-finish { font-size: 1rem; color: var(--text-secondary); margin-bottom: 1.5rem; }
+        .guitar-subtitle { font-family: var(--font-display); font-size: 1rem; font-style: italic; color: var(--text-muted); margin-bottom: 0.5rem; line-height: 1.4; }
 
         .badge { display: inline-block; font-family: var(--font-label); font-size: 0.62rem; letter-spacing: 0.14em; padding: 0.3rem 0.8rem; border: 1px solid var(--gold-muted); color: var(--gold); margin-bottom: 1.5rem; }
         .badge.sale { border-color: rgba(80,180,100,0.35); color: var(--green); }
@@ -222,12 +222,13 @@
 
     function renderGuitar(g) {
         const back = getBackLink(g.status);
+        const badgeLabel = g.status === 'Current Collection' ? 'Collection' : (g.status || 'Collection');
         const badgeClass = g.status === 'For Sale' ? 'sale' : g.status === 'Archive' ? 'archive' : '';
         const youtubeId = getYouTubeId(g.videoUrl);
         // Serial is intentionally excluded from public display
         const specs = [
             { label: 'Year', value: g.year },
-            { label: 'Model', value: g.model ? `Les Paul ${g.model}` : '' },
+            { label: 'Model', value: g.model || '' },
             { label: 'Finish', value: g.finish },
             { label: 'Weight', value: g.weight ? `${g.weight} lbs` : '' },
             { label: 'Neck Profile', value: g.neckProfile },
@@ -263,8 +264,9 @@
                     <a href="${back.href}" class="back-link">← ${back.label.replace('← ', '')}</a>
                     <div class="guitar-eyebrow">Gibson Les Paul</div>
                     <h1 class="guitar-title">${g.name}</h1>
+                    ${g.model ? `<p class="guitar-subtitle">${g.model}</p>` : ''}
                     ${(g.finish || g.weight) ? `<p class="guitar-finish">${[g.finish, g.weight ? g.weight + ' lbs' : ''].filter(Boolean).join(' · ')}</p>` : ''}
-                    <span class="badge ${badgeClass}">${g.status}</span>
+                    <span class="badge ${badgeClass}">${badgeLabel}</span>
                     ${g.price ? `<div class="price">${formatPrice(g.price)}</div>` : ''}
 
                     <div class="specs-grid">

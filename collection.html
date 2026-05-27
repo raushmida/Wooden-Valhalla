@@ -186,7 +186,7 @@
                     }
                     <div class="card-overlay">
                         <div class="card-year">${g.year || ''}</div>
-                        <div class="card-model">${g.model ? `Les Paul ${g.model}` : g.name}</div>
+                        <div class="card-model">${g.name}</div>
                         <div class="card-detail">${[g.finish, g.weight ? `${g.weight} lbs` : ''].filter(Boolean).join(' · ')}</div>
                     </div>
                 </div>
@@ -216,7 +216,7 @@
 
     async function loadGuitars() {
         try {
-            const res = await fetch('/api/guitars?status=Collection');
+            const res = await fetch('/api/guitars?status=Current Collection');
             const data = await res.json();
             allGuitars = data.guitars || [];
             buildFilters(allGuitars);
