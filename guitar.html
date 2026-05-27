@@ -333,8 +333,6 @@
                     <div class="guitar-eyebrow">Gibson Les Paul</div>
                     <h1 class="guitar-title">${g.name}</h1>
                     ${g.model ? `<p class="guitar-subtitle">${[g.model, g.specialRun].filter(Boolean).join(' · ')}</p>` : ''}
-                    ${g.finish ? `<p class="guitar-finish">${g.finish}</p>` : ''}
-                    ${g.weight ? `<p class="guitar-weight">${g.weight} lbs</p>` : ''}
                     <span class="badge ${badgeClass}">${badgeLabel}</span>
                     ${g.price ? `<div class="price">${formatPrice(g.price)}</div>` : ''}
 
