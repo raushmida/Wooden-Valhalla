@@ -61,9 +61,8 @@
         .guitar-card:hover .guitar-card-img img { transform: scale(1.05); }
         .guitar-no-photo { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: var(--bg-card); }
         .card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 3.5rem 1.5rem 1.5rem; background: linear-gradient(to top, rgba(10,7,3,0.97) 0%, rgba(10,7,3,0.5) 50%, transparent 100%); pointer-events: none; }
-        .card-year { font-family: var(--font-label); font-size: 2.8rem; color: rgba(200,146,42,0.25); line-height: 1; margin-bottom: 0.2rem; }
-        .card-model { font-family: var(--font-display); font-size: 1.2rem; font-weight: 400; color: var(--text-primary); margin-bottom: 0.2rem; }
-        .card-detail { font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.04em; }
+        .card-model { font-family: var(--font-display); font-size: 1.35rem; font-weight: 400; color: var(--text-primary); margin-bottom: 0.4rem; line-height: 1.2; }
+        .card-detail { font-size: 0.76rem; color: var(--text-muted); letter-spacing: 0.02em; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .card-price { font-family: var(--font-label); font-size: 1.4rem; letter-spacing: 0.06em; color: var(--green); margin-top: 0.4rem; }
         .card-meta { padding: 1.1rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
         .badge-sale { font-family: var(--font-label); font-size: 0.62rem; letter-spacing: 0.14em; padding: 0.28rem 0.7rem; border: 1px solid rgba(80,180,100,0.35); color: var(--green); }
@@ -190,9 +189,8 @@
                             : `<div class="guitar-no-photo"></div>`
                         }
                         <div class="card-overlay">
-                            <div class="card-year">${g.year || ''}</div>
                             <div class="card-model">${g.name}</div>
-                            <div class="card-detail">${[g.finish, g.weight ? `${g.weight} lbs` : ''].filter(Boolean).join(' · ')}</div>
+                            <div class="card-detail">${[g.year, g.model, g.finish].filter(Boolean).join(' · ')}</div>
                             ${g.price ? `<div class="card-price">${formatPrice(g.price)}</div>` : ''}
                         </div>
                     </div>
