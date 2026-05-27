@@ -143,6 +143,19 @@
         .video-wrap { margin-top: 2rem; }
         .video-embed { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
         .video-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        /* External video link button (Instagram, etc.) */
+        .video-link {
+            display: inline-flex; align-items: center; gap: 0.85rem;
+            padding: 1rem 1.5rem; margin-top: 0.25rem;
+            border: 1px solid var(--border);
+            color: var(--text-secondary); text-decoration: none;
+            font-family: var(--font-label); font-size: 0.82rem; letter-spacing: 0.14em;
+            transition: all 0.22s ease;
+        }
+        .video-link:hover { border-color: var(--gold-muted); color: var(--gold); }
+        .video-link svg { width: 18px; height: 18px; flex-shrink: 0; }
+        .video-link-arrow { margin-left: 0.5rem; transition: transform 0.2s; }
+        .video-link:hover .video-link-arrow { transform: translateX(4px); }
 
         .inquire-block { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
         .btn-gold { font-family: var(--font-label); font-size: 0.82rem; letter-spacing: 0.16em; padding: 1rem 2.5rem; background: var(--gold); color: var(--bg-primary); text-decoration: none; display: inline-block; transition: all 0.22s ease; }
@@ -270,10 +283,14 @@
         return '$' + Number(p).toLocaleString('en-US', { minimumFractionDigits: 0 });
     }
 
-    function getYouTubeId(url) {
+    function getVideoInfo(url) {
         if (!url) return null;
-        const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^&\n?#]+)/);
-        return match ? match[1] : null;
+        // YouTube
+        const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^&\n?#]+)/);
+        if (ytMatch) return { type: 'youtube', id: ytMatch[1] };
+        // Instagram
+        if (url.includes('instagram.com')) return { type: 'instagram', url };
+        return null;
     }
 
     function getBackLink(status) {
@@ -286,7 +303,7 @@
         const back = getBackLink(g.status);
         const badgeLabel = g.status === 'Current Collection' ? 'Collection' : (g.status || 'Collection');
         const badgeClass = g.status === 'For Sale' ? 'sale' : g.status === 'Archive' ? 'archive' : '';
-        const youtubeId = getYouTubeId(g.videoUrl);
+        const videoInfo = getVideoInfo(g.videoUrl);
         // Serial is intentionally excluded from public display
         const specs = [
             { label: 'Year', value: g.year },
@@ -355,12 +372,24 @@
                         <div class="condition-notes">${g.conditionNotes}</div>
                     ` : ''}
 
-                    ${youtubeId ? `
+                    ${videoInfo ? `
                         <div class="video-wrap">
                             <div class="section-heading">Video</div>
+                            ${videoInfo.type === 'youtube' ? `
                             <div class="video-embed">
-                                <iframe src="https://www.youtube.com/embed/${youtubeId}" allowfullscreen title="${g.name} video"></iframe>
+                                <iframe src="https://www.youtube.com/embed/${videoInfo.id}" allowfullscreen title="${g.name} video"></iframe>
                             </div>
+                            ` : `
+                            <a href="${videoInfo.url}" target="_blank" rel="noopener noreferrer" class="video-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                    <circle cx="12" cy="12" r="4"/>
+                                    <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+                                </svg>
+                                Watch on Instagram
+                                <span class="video-link-arrow">→</span>
+                            </a>
+                            `}
                         </div>
                     ` : ''}
 
