@@ -229,6 +229,7 @@
         const specs = [
             { label: 'Year', value: g.year },
             { label: 'Model', value: g.model || '' },
+            { label: 'Special Run', value: g.specialRun || '' },
             { label: 'Finish', value: g.finish },
             { label: 'Weight', value: g.weight ? `${g.weight} lbs` : '' },
             { label: 'Neck Profile', value: g.neckProfile },
@@ -264,7 +265,7 @@
                     <a href="${back.href}" class="back-link">← ${back.label.replace('← ', '')}</a>
                     <div class="guitar-eyebrow">Gibson Les Paul</div>
                     <h1 class="guitar-title">${g.name}</h1>
-                    ${g.model ? `<p class="guitar-subtitle">${g.model}</p>` : ''}
+                    ${g.model ? `<p class="guitar-subtitle">${[g.model, g.specialRun].filter(Boolean).join(' · ')}</p>` : ''}
                     ${(g.finish || g.weight) ? `<p class="guitar-finish">${[g.finish, g.weight ? g.weight + ' lbs' : ''].filter(Boolean).join(' · ')}</p>` : ''}
                     <span class="badge ${badgeClass}">${badgeLabel}</span>
                     ${g.price ? `<div class="price">${formatPrice(g.price)}</div>` : ''}

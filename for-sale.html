@@ -190,7 +190,7 @@
                         }
                         <div class="card-overlay">
                             <div class="card-model">${g.name}</div>
-                            <div class="card-detail">${[g.year, g.model, g.finish].filter(Boolean).join(' · ')}</div>
+                            <div class="card-detail">${[g.year, g.model, g.specialRun, g.finish].filter(Boolean).join(' · ')}</div>
                             ${g.price ? `<div class="card-price">${formatPrice(g.price)}</div>` : ''}
                         </div>
                     </div>

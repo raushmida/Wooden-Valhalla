@@ -87,6 +87,7 @@ function formatRecord(record) {
     name: f['Name'] || '',
     year: f['Year'] || null,
     model: f['Model'] || '',
+    specialRun: f['Special Run'] || '',
     finish: f['Finish'] || '',
     // Serial is intentionally excluded — never sent to the browser
     weight: f['Weight'] || null,
