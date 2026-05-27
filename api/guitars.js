@@ -1,11 +1,11 @@
-// api/guitars.js — Vercel Serverless Function
+// api/guitars.js — Vercel Serverless Function (CommonJS)
 // Proxies Airtable requests so the API token is never exposed in the browser
 
 const AIRTABLE_TOKEN = process.env.AIRTABLE_TOKEN;
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
 const TABLE_NAME = 'Guitars';
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -46,22 +46,25 @@ export default async function handler(req, res) {
       ? `AND(${filters.join(', ')})`
       : filters[0] || '';
 
-    // Fetch records
-    const params = new URLSearchParams({
-      sort: JSON.stringify([{ field: 'Year', direction: 'desc' }]),
-      ...(formula && { filterByFormula: formula })
-    });
-
+    // Fetch all records (paginate if needed)
     let allRecords = [];
     let offset = null;
 
     do {
+      const params = new URLSearchParams();
+      params.set('sort[0][field]', 'Year');
+      params.set('sort[0][direction]', 'desc');
+      if (formula) params.set('filterByFormula', formula);
       if (offset) params.set('offset', offset);
+
       const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${TABLE_NAME}?${params}`;
       const response = await fetch(url, {
         headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }
       });
-      if (!response.ok) throw new Error(`Airtable error: ${response.status}`);
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`Airtable error ${response.status}: ${errText}`);
+      }
       const data = await response.json();
       allRecords = allRecords.concat(data.records || []);
       offset = data.offset || null;
@@ -72,10 +75,10 @@ export default async function handler(req, res) {
     return res.status(200).json({ guitars });
 
   } catch (err) {
-    console.error('Airtable error:', err);
-    return res.status(500).json({ error: 'Failed to fetch guitars' });
+    console.error('Airtable error:', err.message);
+    return res.status(500).json({ error: 'Failed to fetch guitars', detail: err.message });
   }
-}
+};
 
 function formatRecord(record) {
   const f = record.fields || {};
@@ -98,7 +101,7 @@ function formatRecord(record) {
     videoUrl: f['Video URL'] || '',
     photos: (f['Photos'] || []).map(p => ({
       url: p.url,
-      thumb: p.thumbnails?.large?.url || p.url,
+      thumb: (p.thumbnails && p.thumbnails.large) ? p.thumbnails.large.url : p.url,
       width: p.width,
       height: p.height,
       filename: p.filename
