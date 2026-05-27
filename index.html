@@ -656,6 +656,10 @@
             from { opacity: 0; transform: translateY(28px); }
             to   { opacity: 1; transform: translateY(0); }
         }
+        @keyframes shimmer {
+            0%   { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
         .au { animation: fadeUp 0.9s ease forwards; }
         .d1 { animation-delay: 0.1s;  opacity: 0; }
         .d2 { animation-delay: 0.25s; opacity: 0; }
@@ -941,7 +945,6 @@
     }, 6000);
 
     // Dynamic featured guitars from Airtable
-    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
     async function loadFeaturedGuitars() {
         const grid = document.getElementById('featuredGrid');
