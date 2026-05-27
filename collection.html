@@ -51,9 +51,6 @@
         .page-title em { font-style: italic; color: var(--gold-light); }
         .page-desc { font-size: 1rem; color: var(--text-secondary); max-width: 520px; line-height: 1.75; }
 
-        .filter-bar { padding: 0 3rem 3rem; max-width: 1380px; margin: 0 auto; display: flex; gap: 0.75rem; flex-wrap: wrap; }
-        .filter-btn { font-family: var(--font-label); font-size: 0.72rem; letter-spacing: 0.14em; padding: 0.5rem 1.2rem; border: 1px solid var(--border); color: var(--text-muted); background: none; cursor: pointer; transition: all 0.2s; }
-        .filter-btn:hover, .filter-btn.active { border-color: var(--gold-muted); color: var(--gold); }
 
         .guitars-section { padding: 0 3rem 6rem; max-width: 1380px; margin: 0 auto; }
         .guitar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
@@ -92,7 +89,7 @@
             nav { padding: 1.2rem 1.5rem; }
             .nav-links { display: none; }
             .hamburger { display: flex; }
-            .page-header, .filter-bar, .guitars-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .page-header, .guitars-section { padding-left: 1.5rem; padding-right: 1.5rem; }
             .guitar-grid { grid-template-columns: 1fr; }
             footer { flex-direction: column; gap: 1.25rem; padding: 2rem 1.5rem; text-align: center; }
         }
@@ -133,9 +130,6 @@
     <p class="page-desc">Every guitar here has been played, evaluated, and documented. These aren't for sale — they're what I'm holding onto.</p>
 </div>
 
-<div class="filter-bar" id="filterBar">
-    <button class="filter-btn active" data-filter="all">All</button>
-</div>
 
 <div class="guitars-section">
     <div class="guitar-grid" id="guitarGrid">
@@ -168,7 +162,6 @@
     mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
     let allGuitars = [];
-    let activeFilter = 'all';
 
     function renderGuitars(guitars) {
         const grid = document.getElementById('guitarGrid');
@@ -196,28 +189,11 @@
         `).join('');
     }
 
-    function buildFilters(guitars) {
-        const finishes = [...new Set(guitars.map(g => g.finish).filter(Boolean))].sort();
-        const bar = document.getElementById('filterBar');
-        bar.innerHTML = `<button class="filter-btn active" data-filter="all">All</button>` +
-            finishes.map(f => `<button class="filter-btn" data-filter="${f}">${f}</button>`).join('');
-        bar.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                bar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                activeFilter = btn.dataset.filter;
-                const filtered = activeFilter === 'all' ? allGuitars : allGuitars.filter(g => g.finish === activeFilter);
-                renderGuitars(filtered);
-            });
-        });
-    }
-
     async function loadGuitars() {
         try {
             const res = await fetch('/api/guitars?status=Current Collection');
             const data = await res.json();
             allGuitars = data.guitars || [];
-            buildFilters(allGuitars);
             renderGuitars(allGuitars);
         } catch (err) {
             document.getElementById('guitarGrid').innerHTML = '<div class="empty-state"><p>Could not load collection. Please try again.</p></div>';
