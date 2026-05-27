@@ -224,16 +224,16 @@
         const back = getBackLink(g.status);
         const badgeClass = g.status === 'For Sale' ? 'sale' : g.status === 'Archive' ? 'archive' : '';
         const youtubeId = getYouTubeId(g.videoUrl);
+        // Serial is intentionally excluded from public display
         const specs = [
             { label: 'Year', value: g.year },
             { label: 'Model', value: g.model ? `Les Paul ${g.model}` : '' },
             { label: 'Finish', value: g.finish },
             { label: 'Weight', value: g.weight ? `${g.weight} lbs` : '' },
-            { label: 'Serial', value: g.serial },
             { label: 'Neck Profile', value: g.neckProfile },
             { label: 'Pickups', value: g.pickups },
             { label: 'Condition', value: g.condition },
-        ].filter(s => s.value);
+        ].filter(s => s.value); // Only render fields with data
 
         // Update page title
         document.title = `${g.name} — Wooden Valhalla`;
@@ -263,7 +263,7 @@
                     <a href="${back.href}" class="back-link">← ${back.label.replace('← ', '')}</a>
                     <div class="guitar-eyebrow">Gibson Les Paul</div>
                     <h1 class="guitar-title">${g.name}</h1>
-                    <p class="guitar-finish">${g.finish}${g.weight ? ` · ${g.weight} lbs` : ''}</p>
+                    ${(g.finish || g.weight) ? `<p class="guitar-finish">${[g.finish, g.weight ? g.weight + ' lbs' : ''].filter(Boolean).join(' · ')}</p>` : ''}
                     <span class="badge ${badgeClass}">${g.status}</span>
                     ${g.price ? `<div class="price">${formatPrice(g.price)}</div>` : ''}
 
