@@ -51,14 +51,69 @@
 
         /* ─── GALLERY ─── */
         .gallery { position: sticky; top: 8rem; }
-        .gallery-main { aspect-ratio: 4/5; position: relative; overflow: hidden; background: var(--bg-card); margin-bottom: 0.75rem; cursor: zoom-in; }
-        .gallery-main img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease; }
+        .gallery-main {
+            aspect-ratio: 4/5;
+            position: relative;
+            background: var(--bg-card);
+            margin-bottom: 0.75rem;
+            cursor: zoom-in;
+            overflow: hidden;
+        }
+        /* contain = full guitar always visible, no cropping */
+        .gallery-main img {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: contain;
+            transition: opacity 0.25s ease;
+        }
+        /* Prev / Next arrows */
+        .gallery-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(12,9,5,0.72); border: 1px solid var(--border);
+            color: var(--text-secondary); font-size: 1.1rem;
+            width: 2.6rem; height: 2.6rem;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.2s; z-index: 10;
+            backdrop-filter: blur(4px);
+        }
+        .gallery-nav:hover { background: rgba(200,146,42,0.18); color: var(--gold); border-color: var(--gold-muted); }
+        .gallery-prev { left: 0.75rem; }
+        .gallery-next { right: 0.75rem; }
+        .gallery-nav.hidden { display: none; }
+        /* Photo counter */
+        .gallery-counter {
+            position: absolute; bottom: 0.75rem; right: 0.75rem;
+            font-family: var(--font-label); font-size: 0.62rem; letter-spacing: 0.14em;
+            color: var(--text-muted); background: rgba(12,9,5,0.7);
+            padding: 0.2rem 0.6rem; backdrop-filter: blur(4px);
+        }
         .gallery-thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; }
-        .thumb { aspect-ratio: 1; overflow: hidden; cursor: pointer; opacity: 0.55; transition: opacity 0.2s; border: 1px solid transparent; }
+        .thumb { aspect-ratio: 1; overflow: hidden; cursor: pointer; opacity: 0.5; transition: opacity 0.2s; border: 1px solid transparent; }
         .thumb:hover, .thumb.active { opacity: 1; border-color: var(--gold-muted); }
         .thumb img { width: 100%; height: 100%; object-fit: cover; }
         .gallery-skeleton { aspect-ratio: 4/5; background: linear-gradient(90deg, var(--bg-card) 25%, #221a0d 50%, var(--bg-card) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
         @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+        /* ─── LIGHTBOX ─── */
+        .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.97); z-index: 1000; align-items: center; justify-content: center; }
+        .lightbox.open { display: flex; }
+        .lightbox-img-wrap { position: relative; display: flex; align-items: center; justify-content: center; max-width: 92vw; max-height: 92vh; }
+        .lightbox img { max-width: 88vw; max-height: 88vh; object-fit: contain; display: block; }
+        .lightbox-close { position: absolute; top: 1.5rem; right: 2rem; font-size: 2rem; color: var(--text-muted); cursor: pointer; background: none; border: none; transition: color 0.2s; z-index: 10; }
+        .lightbox-close:hover { color: var(--text-primary); }
+        .lightbox-nav {
+            position: fixed; top: 50%; transform: translateY(-50%);
+            background: rgba(12,9,5,0.6); border: 1px solid var(--border);
+            color: var(--text-secondary); font-size: 1.4rem;
+            width: 3.2rem; height: 3.2rem;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.2s; backdrop-filter: blur(4px);
+        }
+        .lightbox-nav:hover { color: var(--gold); border-color: var(--gold-muted); }
+        .lightbox-prev { left: 1.5rem; }
+        .lightbox-next { right: 1.5rem; }
+        .lightbox-counter { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); font-family: var(--font-label); font-size: 0.72rem; letter-spacing: 0.2em; color: var(--text-muted); }
+        .lightbox-nav.hidden { display: none; }
 
         /* ─── INFO ─── */
         .guitar-info { padding-top: 0.5rem; }
@@ -167,7 +222,12 @@
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox">
     <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
-    <img id="lightboxImg" src="" alt="">
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous">←</button>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next">→</button>
+    <div class="lightbox-img-wrap">
+        <img id="lightboxImg" src="" alt="">
+    </div>
+    <div class="lightbox-counter" id="lightboxCounter"></div>
 </div>
 
 <footer>
@@ -249,11 +309,16 @@
                             ? `<img id="mainPhoto" src="${g.photos[0].url}" alt="${g.name}">`
                             : `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:0.85rem;letter-spacing:0.1em;">No Photos Yet</div>`
                         }
+                        ${g.photos.length > 1 ? `
+                        <button class="gallery-nav gallery-prev" id="galleryPrev" aria-label="Previous photo">←</button>
+                        <button class="gallery-nav gallery-next" id="galleryNext" aria-label="Next photo">→</button>
+                        <div class="gallery-counter" id="galleryCounter">1 / ${g.photos.length}</div>
+                        ` : ''}
                     </div>
                     ${g.photos.length > 1 ? `
                     <div class="gallery-thumbs">
                         ${g.photos.map((p, i) => `
-                            <div class="thumb ${i === 0 ? 'active' : ''}" data-index="${i}" data-url="${p.url}">
+                            <div class="thumb ${i === 0 ? 'active' : ''}" data-index="${i}">
                                 <img src="${p.thumb}" alt="Photo ${i+1}" loading="lazy">
                             </div>
                         `).join('')}
@@ -308,18 +373,97 @@
             </div>
         `;
 
-        // Gallery interactivity
-        const mainPhoto = document.getElementById('mainPhoto');
-        if (mainPhoto && g.photos.length) {
-            document.getElementById('galleryMain').addEventListener('click', () => {
-                openLightbox(mainPhoto.src);
+        // ── Gallery interactivity ──
+        if (g.photos.length) {
+            const photos = g.photos;
+            let currentIndex = 0;
+            const mainPhoto = document.getElementById('mainPhoto');
+            const galleryMain = document.getElementById('galleryMain');
+            const galleryCounter = document.getElementById('galleryCounter');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxCounter = document.getElementById('lightboxCounter');
+
+            function goTo(index) {
+                currentIndex = (index + photos.length) % photos.length;
+
+                // Fade-swap main photo
+                mainPhoto.style.opacity = '0';
+                setTimeout(() => {
+                    mainPhoto.src = photos[currentIndex].url;
+                    mainPhoto.style.opacity = '1';
+                }, 180);
+
+                // Sync lightbox
+                lightboxImg.src = photos[currentIndex].url;
+
+                // Update counter
+                if (galleryCounter) galleryCounter.textContent = `${currentIndex + 1} / ${photos.length}`;
+                if (lightboxCounter) lightboxCounter.textContent = `${currentIndex + 1} / ${photos.length}`;
+
+                // Update thumbs
+                document.querySelectorAll('.thumb').forEach((t, i) =>
+                    t.classList.toggle('active', i === currentIndex)
+                );
+            }
+
+            // Thumb clicks
+            document.querySelectorAll('.thumb').forEach((thumb, i) =>
+                thumb.addEventListener('click', () => goTo(i))
+            );
+
+            // Prev / Next buttons (gallery)
+            const gPrev = document.getElementById('galleryPrev');
+            const gNext = document.getElementById('galleryNext');
+            if (gPrev) gPrev.addEventListener('click', e => { e.stopPropagation(); goTo(currentIndex - 1); });
+            if (gNext) gNext.addEventListener('click', e => { e.stopPropagation(); goTo(currentIndex + 1); });
+
+            // Mouse wheel on gallery (prevent page scroll while over gallery)
+            galleryMain.addEventListener('wheel', e => {
+                e.preventDefault();
+                goTo(currentIndex + (e.deltaY > 0 ? 1 : -1));
+            }, { passive: false });
+
+            // Touch swipe on gallery
+            let touchStartX = 0;
+            galleryMain.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+            galleryMain.addEventListener('touchend', e => {
+                const diff = touchStartX - e.changedTouches[0].clientX;
+                if (Math.abs(diff) > 40) goTo(currentIndex + (diff > 0 ? 1 : -1));
             });
-            document.querySelectorAll('.thumb').forEach(thumb => {
-                thumb.addEventListener('click', () => {
-                    document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
-                    thumb.classList.add('active');
-                    mainPhoto.src = thumb.dataset.url;
-                });
+
+            // Click main photo to open lightbox
+            galleryMain.addEventListener('click', e => {
+                if (e.target.closest('.gallery-nav')) return;
+                lightboxImg.src = photos[currentIndex].url;
+                if (lightboxCounter) lightboxCounter.textContent = `${currentIndex + 1} / ${photos.length}`;
+                document.getElementById('lightbox').classList.add('open');
+            });
+
+            // Prev / Next buttons (lightbox)
+            const lbPrev = document.getElementById('lightboxPrev');
+            const lbNext = document.getElementById('lightboxNext');
+            if (lbPrev) lbPrev.addEventListener('click', e => { e.stopPropagation(); goTo(currentIndex - 1); });
+            if (lbNext) lbNext.addEventListener('click', e => { e.stopPropagation(); goTo(currentIndex + 1); });
+
+            // Hide lightbox nav arrows if only one photo
+            if (photos.length <= 1) {
+                if (lbPrev) lbPrev.classList.add('hidden');
+                if (lbNext) lbNext.classList.add('hidden');
+            }
+
+            // Keyboard navigation (arrows + Escape)
+            document.addEventListener('keydown', e => {
+                if (e.key === 'ArrowLeft')  goTo(currentIndex - 1);
+                if (e.key === 'ArrowRight') goTo(currentIndex + 1);
+                if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('open');
+            });
+
+            // Touch swipe in lightbox
+            let lbTouchX = 0;
+            document.getElementById('lightbox').addEventListener('touchstart', e => { lbTouchX = e.touches[0].clientX; }, { passive: true });
+            document.getElementById('lightbox').addEventListener('touchend', e => {
+                const diff = lbTouchX - e.changedTouches[0].clientX;
+                if (Math.abs(diff) > 40) goTo(currentIndex + (diff > 0 ? 1 : -1));
             });
         }
     }
