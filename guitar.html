@@ -201,8 +201,6 @@
         <li><a href="collection.html">Collection</a></li>
         <li><a href="archive.html">Past Guitars</a></li>
         <li><a href="for-sale.html">For Sale</a></li>
-        <li><a href="calculator.html">Calculator</a></li>
-        <li><a href="guides/index.html">Guides</a></li>
         <li><a href="index.html#about">About</a></li>
         <li><a href="index.html#contact" class="nav-cta">Inquire</a></li>
     </ul>
@@ -216,7 +214,6 @@
     <a href="collection.html">Collection</a>
     <a href="archive.html">Past Guitars</a>
     <a href="for-sale.html">For Sale</a>
-    <a href="guides/index.html">Guides</a>
     <a href="index.html#about">About</a>
     <a href="index.html#contact">Inquire</a>
 </div>
@@ -251,7 +248,6 @@
     <ul class="footer-links">
         <li><a href="collection.html">Collection</a></li>
         <li><a href="for-sale.html">For Sale</a></li>
-        <li><a href="guides/index.html">Guides</a></li>
         <li><a href="index.html#contact">Contact</a></li>
     </ul>
 </footer>
@@ -303,7 +299,12 @@
         const back = getBackLink(g.status);
         const badgeLabel = g.status === 'Current Collection' ? 'Collection' : (g.status || 'Collection');
         const badgeClass = g.status === 'For Sale' ? 'sale' : g.status === 'Archive' ? 'archive' : '';
-        const videoInfo = getVideoInfo(g.videoUrl);
+        const videoInfos = (g.videoUrl || '')
+            .split('\n')
+            .map(u => u.trim())
+            .filter(Boolean)
+            .map(getVideoInfo)
+            .filter(Boolean);
         // Serial is intentionally excluded from public display
         const specs = [
             { label: 'Year', value: g.year },
@@ -372,15 +373,15 @@
                         <div class="condition-notes">${g.conditionNotes}</div>
                     ` : ''}
 
-                    ${videoInfo ? `
+                    ${videoInfos.length ? `
                         <div class="video-wrap">
                             <div class="section-heading">Video</div>
-                            ${videoInfo.type === 'youtube' ? `
-                            <div class="video-embed">
-                                <iframe src="https://www.youtube.com/embed/${videoInfo.id}" allowfullscreen title="${g.name} video"></iframe>
+                            ${videoInfos.map(v => v.type === 'youtube' ? `
+                            <div class="video-embed" style="margin-bottom:1rem">
+                                <iframe src="https://www.youtube.com/embed/${v.id}" allowfullscreen title="${g.name} video"></iframe>
                             </div>
                             ` : `
-                            <a href="${videoInfo.url}" target="_blank" rel="noopener noreferrer" class="video-link">
+                            <a href="${v.url}" target="_blank" rel="noopener noreferrer" class="video-link" style="margin-bottom:0.6rem">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                                     <circle cx="12" cy="12" r="4"/>
@@ -389,7 +390,7 @@
                                 Watch on Instagram
                                 <span class="video-link-arrow">→</span>
                             </a>
-                            `}
+                            `).join('')}
                         </div>
                     ` : ''}
 
