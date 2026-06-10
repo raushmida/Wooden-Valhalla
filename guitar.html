@@ -129,7 +129,9 @@
         .badge.sale { border-color: rgba(80,180,100,0.35); color: var(--green); }
         .badge.archive { border-color: var(--text-muted); color: var(--text-muted); }
 
-        .price { font-family: var(--font-label); font-size: 2.2rem; letter-spacing: 0.06em; color: var(--green); margin-bottom: 1.5rem; }
+        .price { font-family: var(--font-label); font-size: 2.2rem; letter-spacing: 0.06em; color: var(--green); margin-bottom: 0.4rem; }
+        .shipping-line { font-size: 0.82rem; color: var(--text-muted); letter-spacing: 0.03em; margin-bottom: 1.5rem; }
+        .shipping-line .shipping-cost { color: var(--text-secondary); }
 
         .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.1rem; border-top: 1px solid var(--border); margin-bottom: 2rem; }
         .spec-row { padding: 0.8rem 0; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.15rem; }
@@ -352,7 +354,15 @@
                     <h1 class="guitar-title">${g.name}</h1>
                     ${g.model ? `<p class="guitar-subtitle">${[g.model, g.specialRun].filter(Boolean).join(' · ')}</p>` : ''}
                     <span class="badge ${badgeClass}">${badgeLabel}</span>
-                    ${g.price ? `<div class="price">${formatPrice(g.price)}</div>` : ''}
+                    ${g.price ? `
+                        <div class="price">${formatPrice(g.price)}</div>
+                        ${g.shipping ? `
+                        <div class="shipping-line">
+                            <span class="shipping-cost">${/^\d/.test(g.shipping.trim()) ? '+ $' + Number(g.shipping.replace(/[^0-9.]/g,'')).toLocaleString() + ' shipping' : g.shipping}</span>
+                            <span> &middot; US only</span>
+                        </div>
+                        ` : '<div class="shipping-line"><span>US only</span></div>'}
+                    ` : ''}
 
                     <div class="specs-grid">
                         ${specs.map(s => `

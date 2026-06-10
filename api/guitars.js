@@ -101,6 +101,7 @@ function formatRecord(record) {
     status: f['Status'] || '',
     sortOrder: f['Sort Order'] || null,
     price: f['Price'] || null,
+    shipping: f['Shipping'] || '',
     description: f['Description'] || '',
     conditionNotes: f['Condition Notes'] || '',
     featured: f['Featured'] || false,
